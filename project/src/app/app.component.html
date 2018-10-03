@@ -1,1 +1,19 @@
+<div *ngIf="debug">
+  <div class="container"
+    style="border:solid; width: 500px">
+    <input mat-input
+      style="width: 90px;"
+      placeholder="Debug options:"
+      disabled="true">
+    <button mat-button
+      routerLink="">login</button>
+    <button mat-button
+      routerLink="user">user</button>
+    <button mat-button
+      routerLink="professional">professional</button>
+    <button mat-button
+      routerLink="newAccount">new account</button>
+  </div>
 
+</div>
+<router-outlet></router-outlet>

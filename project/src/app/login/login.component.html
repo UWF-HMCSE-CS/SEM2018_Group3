@@ -1,0 +1,44 @@
+<div class="container"
+  class="login">
+  <form class="login-form"
+    #f="ngForm"
+    (ngSubmit)="onSubmit()">
+    <div class="row">
+
+      <div class="col-6">
+        <mat-form-field class="login-input">
+          <input matInput
+            name="email"
+            placeholder="Email"
+            type="text"
+            ngModel
+            required
+            email>
+        </mat-form-field>
+      </div>
+      <div class="col-6">
+        <mat-form-field class="login-input">
+          <input matInput
+            name="password"
+            placeholder="Password"
+            type="password"
+            ngModel
+            required
+            password
+            minlength="8">
+        </mat-form-field>
+      </div>
+
+    </div>
+    <div class="row">
+      <button mat-button
+        type="submit"
+        [disabled]="!f.valid"
+        class="btn btn-primary login-button">Login</button>
+      <button mat-button
+        class="btn btn-primary login-button"
+        type="button"
+        routerLink="/newAccount">New Account</button>
+    </div>
+  </form>
+</div>
