@@ -1,0 +1,41 @@
+.login-form {
+  min-width: 350px;
+  max-width: 500px;
+  width: 100%;
+}
+
+.login {
+  position: absolute;
+  top: 50%;
+  margin-top: -100px;
+  left: 50%;
+  margin-left: -180px;
+  border: solid;
+  border-radius: 5%;
+  background-color: #e8e8e8;
+  max-width: 350px;
+}
+
+.login-input {
+  width: 90%;
+  padding-left: 15px;
+  padding-top: 5px;
+}
+
+.new-account-button {
+  border: solid;
+  border-radius: 20%;
+  margin-left: 26%;
+  margin-bottom: 10px;
+  background-color: lightgray;
+}
+
+.new-account-radio {
+  padding-left: 20px;
+  padding-bottom: 10px;
+}
+
+.new-account-menu {
+  padding-left: 30%;
+  width: 125px;
+}

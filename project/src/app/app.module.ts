@@ -11,12 +11,13 @@ import { FormsModule } from '@angular/forms';
 import { PatientComponent } from './patient/patient.component';
 import { ProfessionalComponent } from './professional/professional.component';
 import { NewAccountComponent } from './new-account/new-account.component';
+import { MatRadioModule } from '@angular/material/radio';
+import { MatMenuModule } from '@angular/material/menu';
+import { MatSelectModule } from '@angular/material';
+import { MatFormFieldModule } from '@angular/material/form-field';
 
 const appRoutes: Routes = [
-  {
-    path: 'login',
-    component: LoginComponent
-  },
+  { path: 'login', component: LoginComponent },
   { path: 'newAccount', component: NewAccountComponent },
   { path: 'user', component: PatientComponent },
   { path: 'professional', component: ProfessionalComponent },
@@ -51,7 +52,11 @@ const appRoutes: Routes = [
     RouterModule.forRoot(appRoutes),
     MatInputModule,
     MatButtonModule,
-    FormsModule
+    FormsModule,
+    MatRadioModule,
+    MatMenuModule,
+    MatSelectModule,
+    MatFormFieldModule
   ],
   providers: [],
   bootstrap: [AppComponent]
