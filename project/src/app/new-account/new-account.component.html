@@ -1,94 +1,68 @@
-<div class="container login">
-  <form class="login-form"
-        #f="ngForm"
-        (ngSubmit)="onSubmit()">
-    <div class="row">
-      <div class="col-6">
-        <mat-form-field class="login-input">
-          <input matInput
-                 name="firstName"
-                 placeholder="First Name"
-                 type="text"
-                 ngModel
-                 required>
-        </mat-form-field>
-      </div>
-      <div class="col-6">
-        <mat-form-field class="login-input">
-          <input matInput
-                 name="lastName"
-                 placeholder="Last Name"
-                 type="text"
-                 ngModel
-                 required>
-        </mat-form-field>
-      </div>
-    </div>
-    <div class="row">
-      <div class="col-12">
-        <mat-form-field class="login-input">
-          <input matInput
-                 name="address"
-                 placeholder="Address"
-                 type="text"
-                 ngModel
-                 address>
-        </mat-form-field>
-      </div>
-    </div>
-    <div class="row">
-      <div class="col-12">
-        <mat-form-field class="login-input">
-          <input matInput
-                 name="email"
-                 placeholder="Email"
-                 type="text"
-                 ngModel
-                 required
-                 email>
-        </mat-form-field>
-      </div>
-    </div>
-    <div class="row">
-      <div class="col-12">
-        <mat-form-field class="login-input">
-          <input matInput
-                 name="password"
-                 placeholder="Password"
-                 type="password"
-                 ngModel
-                 required
-                 password
-                 minlength="8">
-        </mat-form-field>
-      </div>
-    </div>
-    <div class="row">
-      <div class="col-12">
-        <mat-radio-group [(ngModel)]="patientOrProfessional" name="patientOrProfessional">
-          <mat-radio-button value="patient" class="new-account-radio">Looking for help</mat-radio-button>
-          <mat-radio-button value="professional" class="new-account-radio">Looking to help</mat-radio-button>
+<div class="new-account-wrapper">
+  <div class="new-account">
+    <form class="new-account-form-component-wrapper"
+      #f="ngForm"
+      (ngSubmit)="onSubmit()">
+      <mat-form-field class="first-name">
+        <input matInput
+               name="firstName"
+               placeholder="First Name"
+               type="text"
+               ngModel
+               required>
+      </mat-form-field>
+      <mat-form-field class="last-name">
+        <input matInput
+               name="lastName"
+               placeholder="Last Name"
+               type="text"
+               ngModel
+               required>
+      </mat-form-field>
+      <mat-form-field class="address">
+        <input matInput
+               name="address"
+               placeholder="Address"
+               type="text"
+               ngModel
+               address>
+      </mat-form-field>
+      <mat-form-field class="email">
+        <input matInput
+               name="email"
+               placeholder="Email"
+               type="text"
+               ngModel
+               required
+               email>
+      </mat-form-field>
+      <mat-form-field class="password">
+        <input matInput
+               name="password"
+               placeholder="Password"
+               type="password"
+               ngModel
+               required
+               password
+               minlength="8">
+      </mat-form-field>
+        <mat-radio-group class="type" ngModel [(ngModel)]="patientOrProfessional" name="patientOrProfessional">
+          <mat-radio-button style="padding-left: 30px" type="radio" value="patient">Looking for help</mat-radio-button>
+          <mat-radio-button style="padding-left: 30px" type="radio" value="professional">Looking to help</mat-radio-button>
         </mat-radio-group>
-      </div>
-    </div>
-    <div class="row" *ngIf="patientOrProfessional === 'professional'">
-      <div class="col-12">
-        <mat-form-field class="new-account-menu">
-          <mat-select placeholder="Type of Help" required #select>
+      <div *ngIf="patientOrProfessional === 'professional'">
+        <mat-form-field style="padding-left: 60%; margin-bottom: 20px !important; max-width: 150px;">
+          <mat-select class="type-select" placeholder="Type of Help" required #select name="type" ngModel>
             <mat-option *ngFor="let professionalType of professionalTypes"
                         [value]="professionalType">
               {{ professionalType }}
             </mat-option>
           </mat-select>
         </mat-form-field>
-
       </div>
-    </div>
-    <div class="row">
-      <button mat-button
+      <button class="submit" mat-button
               type="submit"
-              [disabled]="!f.valid"
-              class="btn btn-primary new-account-button">Create New Account</button>
-    </div>
-  </form>
+              [disabled]="!f.valid">Create New Account</button>
+    </form>
+  </div>
 </div>

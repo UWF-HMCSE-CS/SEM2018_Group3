@@ -1,44 +1,35 @@
-<div class="container"
-  class="login">
-  <form class="login-form"
-    #f="ngForm"
-    (ngSubmit)="onSubmit()">
-    <div class="row">
-
-      <div class="col-6">
-        <mat-form-field class="login-input">
-          <input matInput
-            name="email"
-            placeholder="Email"
-            type="text"
-            ngModel
-            required
-            email>
-        </mat-form-field>
-      </div>
-      <div class="col-6">
-        <mat-form-field class="login-input">
-          <input matInput
-            name="password"
-            placeholder="Password"
-            type="password"
-            ngModel
-            required
-            password
-            minlength="8">
-        </mat-form-field>
-      </div>
-
-    </div>
-    <div class="row">
+<div class="login-wrapper">
+  <div class="login">
+    <form class="form-components-wrapper"
+      #f="ngForm"
+      (ngSubmit)="onSubmit()">
+      <mat-form-field class="login-email">
+        <input matInput
+               name="email"
+               placeholder="Email"
+               type="text"
+               ngModel
+               required
+               email>
+      </mat-form-field>
+      <mat-form-field class="login-password">
+        <input matInput
+               name="password"
+               placeholder="Password"
+               type="password"
+               ngModel
+               required
+               password
+               minlength="8">
+      </mat-form-field>
       <button mat-button
-        type="submit"
-        [disabled]="!f.valid"
-        class="btn btn-primary login-button">Login</button>
+              type="submit"
+              [disabled]="!f.valid"
+              class="login-button">Login</button>
       <button mat-button
-        class="btn btn-primary login-button"
-        type="button"
-        routerLink="/newAccount">New Account</button>
-    </div>
-  </form>
+              class="login-new-account"
+              type="button"
+              routerLink="/newAccount">New Account</button>
+    </form>
+  </div>
 </div>

@@ -1,41 +1,89 @@
-.login-form {
-  min-width: 350px;
-  max-width: 500px;
-  width: 100%;
+.new-account-wrapper {
+  display: grid;
+  grid-template-columns: 1fr 500px 1fr;
+  grid-gap: 10px;
+  grid-auto-rows: 200px;
+  grid-template-areas:
+    '. .           .'
+    '. new-account .'
+    '. .           .';
 }
 
-.login {
-  position: absolute;
-  top: 50%;
-  margin-top: -100px;
-  left: 50%;
-  margin-left: -180px;
+.new-account {
+  grid-area: new-account;
+  align-self: center;
+  justify-self: center;
+  vertical-align: middle;
   border: solid;
   border-radius: 5%;
   background-color: #e8e8e8;
-  max-width: 350px;
+  box-shadow: 10px 10px 5px grey;
 }
 
-.login-input {
+.new-account-form-component-wrapper {
+  display: grid;
+  grid-template-columns: 200px 200px;
+  grid-gap: 10px;
+  grid-auto-rows: 45px;
+  grid-template-areas:
+    'first-name last-name'
+    'address    address'
+    'email      email'
+    'password   password'
+    'type       type'
+    '. .'
+    'submit     submit';
+}
+
+.first-name {
+  grid-area: first-name;
   width: 90%;
   padding-left: 15px;
-  padding-top: 5px;
 }
 
-.new-account-button {
+.last-name {
+  grid-area: last-name;
+  width: 90%;
+  padding-left: 15px;
+}
+
+.address {
+  grid-area: address;
+  width: 90%;
+  padding-left: 15px;
+}
+
+.email {
+  grid-area: email;
+  width: 90%;
+  padding-left: 15px;
+}
+
+.password {
+  grid-area: password;
+  width: 90%;
+  padding-left: 15px;
+}
+
+.type {
+  grid-area: type;
+  width: 90%;
+  padding-left: 15px;
+  padding-top: 15px;
+}
+
+.type-select {
+  grid-area: type-select;
+  width: 100%;
+}
+
+.submit {
+  grid-area: submit;
   border: solid;
   border-radius: 20%;
-  margin-left: 26%;
-  margin-bottom: 10px;
   background-color: lightgray;
-}
-
-.new-account-radio {
-  padding-left: 20px;
-  padding-bottom: 10px;
-}
-
-.new-account-menu {
-  padding-left: 30%;
-  width: 125px;
+  max-height: 50px;
+  max-width: 175px;
+  margin-left: 27%;
+  margin-bottom: 10px;
 }
