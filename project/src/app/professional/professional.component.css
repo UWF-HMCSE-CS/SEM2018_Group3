@@ -1,0 +1,22 @@
+.header-wrapper {
+  display: grid;
+  grid-auto-columns: 300px 1fr 300px;
+  grid-gap: 10px;
+  grid-auto-rows: 40px;
+  grid-template-areas: 'logo tabs profile';
+}
+
+.logo {
+  grid-area: logo;
+  justify-self: right;
+  padding-top: 10px;
+}
+
+.tabs {
+  grid-area: tabs;
+}
+
+.profile {
+  grid-area: profile;
+  padding-top: 10px;
+}

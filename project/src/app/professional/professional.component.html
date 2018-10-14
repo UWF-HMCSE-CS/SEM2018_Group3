@@ -1,3 +1,27 @@
-<p>
-  professional works!
-</p>
+<div class="header-wrapper">
+  <div class="logo">
+    <fa-icon class="fa-2x"
+      icon="notes-medical"></fa-icon>&nbsp;
+    <span class="mat-typography"
+      style="font-size: 20px;">TheraStation</span>
+  </div>
+  <div class="tabs">
+    <mat-tab-group>
+      <mat-tab label="Search">
+        <app-search-professional></app-search-professional>
+      </mat-tab>
+      <mat-tab label="Profile">
+        <app-profile-professional></app-profile-professional>
+      </mat-tab>
+      <mat-tab label="About Us">
+        <app-about-us></app-about-us>
+      </mat-tab>
+    </mat-tab-group>
+  </div>
+  <div class="profile">
+    <fa-icon class="fa-2x"
+      icon="user"></fa-icon>&nbsp;
+    <span class="mat-typography"
+      style="font-size: 20px;">{{ user.lastName }}, {{ user.firstName }}</span>
+  </div>
+</div>

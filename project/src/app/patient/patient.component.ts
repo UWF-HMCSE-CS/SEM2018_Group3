@@ -6,10 +6,12 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./patient.component.css']
 })
 export class PatientComponent implements OnInit {
+  user: { firstName: string; lastName: string } = {
+    firstName: 'Tony',
+    lastName: 'Stark'
+  };
 
-  constructor() { }
+  constructor() {}
 
-  ngOnInit() {
-  }
-
+  ngOnInit() {}
 }

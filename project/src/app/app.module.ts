@@ -2,7 +2,6 @@ import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { AppComponent } from './app.component';
-import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 import { RouterModule, Routes } from '@angular/router';
 import { LoginComponent } from './login/login.component';
 import { MatInputModule } from '@angular/material/input';
@@ -15,6 +14,18 @@ import { MatRadioModule } from '@angular/material/radio';
 import { MatMenuModule } from '@angular/material/menu';
 import { MatSelectModule } from '@angular/material';
 import { MatFormFieldModule } from '@angular/material/form-field';
+import { HeaderComponent } from './header/header.component';
+import { MatTabsModule } from '@angular/material/tabs';
+import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
+import { library } from '@fortawesome/fontawesome-svg-core';
+import { faNotesMedical, faUser } from '@fortawesome/free-solid-svg-icons';
+import { SearchProfessionalComponent } from './professional/search-professional/search-professional.component';
+import { SearchPatientComponent } from './patient/search-patient/search-patient.component';
+import { ProfilePatientComponent } from './patient/profile-patient/profile-patient.component';
+import { ProfileProfessionalComponent } from './professional/profile-professional/profile-professional.component';
+import { AboutUsComponent } from './about-us/about-us.component';
+
+library.add(faNotesMedical, faUser);
 
 const appRoutes: Routes = [
   { path: 'login', component: LoginComponent },
@@ -42,7 +53,13 @@ const appRoutes: Routes = [
     LoginComponent,
     PatientComponent,
     ProfessionalComponent,
-    NewAccountComponent
+    NewAccountComponent,
+    HeaderComponent,
+    SearchProfessionalComponent,
+    SearchPatientComponent,
+    ProfilePatientComponent,
+    ProfileProfessionalComponent,
+    AboutUsComponent
   ],
   imports: [
     BrowserModule,
@@ -56,7 +73,8 @@ const appRoutes: Routes = [
     MatRadioModule,
     MatMenuModule,
     MatSelectModule,
-    MatFormFieldModule
+    MatFormFieldModule,
+    MatTabsModule
   ],
   providers: [],
   bootstrap: [AppComponent]
