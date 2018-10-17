@@ -24,6 +24,8 @@ import { SearchPatientComponent } from './patient/search-patient/search-patient.
 import { ProfilePatientComponent } from './patient/profile-patient/profile-patient.component';
 import { ProfileProfessionalComponent } from './professional/profile-professional/profile-professional.component';
 import { AboutUsComponent } from './about-us/about-us.component';
+import { HttpClientModule } from '@angular/common/http';
+import { MatSnackBarModule } from '@angular/material/snack-bar';
 
 library.add(faNotesMedical, faUser);
 
@@ -74,7 +76,9 @@ const appRoutes: Routes = [
     MatMenuModule,
     MatSelectModule,
     MatFormFieldModule,
-    MatTabsModule
+    MatTabsModule,
+    HttpClientModule,
+    MatSnackBarModule
   ],
   providers: [],
   bootstrap: [AppComponent]

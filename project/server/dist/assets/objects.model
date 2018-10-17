@@ -1,0 +1,56 @@
+User {
+  id: string
+
+  // Profile information
+  firstName: string,
+  lastName: string,
+  address: string,
+  email: string,
+  password: string,
+
+  // Patient bio: Description of issues, Professional bio: list of credentials or professional history
+  bio: string
+
+  // The type of account (ex. patient, type of professional) from AccountType list below
+  type: string,
+
+  // Appointments
+  requestedAppointments: Appointment[],
+  approvedAppointments: Appointment[],
+  availableAppointments: Date[],
+
+  // Messages between patient and professional
+  messages: Message[],
+
+  // Patient feedback: review on professionals, Professional feedback: personal note about patient
+  feedback: Feedback[]
+}
+
+AccountType {
+  'PATIENT',
+  'PSYCHOLOGIST',
+  'THERAPIST',
+  'PSYCHIATRIST',
+  'COUNSELOR',
+  'SOCIAL WORKER',
+  // others?
+}
+
+Appointment {
+  dateTime: Date,
+  id: string // who the appointment is with
+}
+
+Message {
+  dateTime: Date,
+  text: string,
+  id: string // who the message is to
+}
+
+Feedback {
+  comment: string,
+  // Patient rating: 1-5 rating for professional,
+  // Professional rating: (possibly) 1-5 priority of patient severity
+  rating: number,
+  id: string // who the feedback is about
+}
