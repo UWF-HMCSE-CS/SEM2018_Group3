@@ -1,7 +1,8 @@
 const express = require('express');
 const router = express.Router();
+var Schema = mongoose.Schema;
 
-const newAccountSchema = new Schema({
+var newAccountSchema = Schema({
   firstName: {
     type: String,
     required: 'Enter a first name'
