@@ -46,6 +46,7 @@ export class NewAccountComponent implements OnInit {
       .put('api/newAccount', JSON.stringify(this.form.value), httpOptions)
       .subscribe(
         data => {
+          console.log(data);
           this.snackBar.open('New Account Created Successfully.', '', {
             duration: 3000,
             verticalPosition: 'top',
