@@ -2,6 +2,31 @@ var mongoose = require('mongoose');
 var Schema = mongoose.Schema;
 var ObjectId = Schema.ObjectId;
 
+var Appointment = new Schema({
+  dateTime: Date,
+  id: String // who the appointment is with
+});
+
+var Appointments = mongoose.model('Appointments', Appointment);
+
+var Message = new Schema({
+  dateTime: Date,
+  text: String,
+  id: String // who the message is to
+});
+
+var Messages = mongoose.model('Messages', Message);
+
+var Feedback = new Schema({
+  comment: string,
+  // Patient rating: 1-5 rating for professional;
+  // Professional rating: (possibly) 1-5 priority of patient severity
+  rating: number,
+  id: string // who the feedback is about
+});
+
+var Feedbacks = mongoose.model('Feedbacks', Feedback);
+
 var User = Schema({
   id: ObjectId,
 
@@ -31,31 +56,6 @@ var User = Schema({
 });
 
 var Users = mongoose.model('Users', User);
-
-var Appointment = new Schema({
-  dateTime: Date,
-  id: String // who the appointment is with
-});
-
-var Appointments = mongoose.model('Appointments', Appointment);
-
-var Message = new Schema({
-  dateTime: Date,
-  text: String,
-  id: String // who the message is to
-});
-
-var Messages = mongoose.model('Messages', Message);
-
-var Feedback = new Schema({
-  comment: string,
-  // Patient rating: 1-5 rating for professional;
-  // Professional rating: (possibly) 1-5 priority of patient severity
-  rating: number,
-  id: string // who the feedback is about
-});
-
-var Feedbacks = mongoose.model('Feedbacks', Feedback);
 
 var mongoDB =
   'mongodb://frank:password@therastation.org/admin?authSource=admin';
