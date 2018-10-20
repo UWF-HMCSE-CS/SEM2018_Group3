@@ -9,7 +9,10 @@ import {
 import { MatSnackBar } from '@angular/material/snack-bar';
 
 const httpOptions = {
-  headers: new HttpHeaders({ 'Content-Type': 'application/json' })
+  headers: new HttpHeaders({
+    'Content-Type': 'application/x-www-form-urlencoded',
+    'X-Requested-With': 'XMLHttpRequest'
+  })
 };
 
 @Component({
@@ -40,8 +43,6 @@ export class NewAccountComponent implements OnInit {
   ngOnInit() {}
 
   onSubmit() {
-    console.log('new account submitted');
-    console.log(this.form.value);
     this.http
       .put('api/newAccount', JSON.stringify(this.form.value), httpOptions)
       .subscribe(
@@ -54,6 +55,7 @@ export class NewAccountComponent implements OnInit {
           });
         },
         (err: HttpErrorResponse) => {
+          console.log(err);
           this.snackBar.open('An Error Has Occurred. Please try again.', '', {
             duration: 3000,
             verticalPosition: 'top',
@@ -72,7 +74,6 @@ export class NewAccountComponent implements OnInit {
     if (this.form.value.patientOrProfessional.includes('professional')) {
       formSubmission.type = this.form.value.type;
     }
-    console.log(formSubmission);
 
     // Take user back to login page
     this.router.navigateByUrl('/login');
