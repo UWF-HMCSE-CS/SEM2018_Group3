@@ -18,11 +18,11 @@ var Message = new Schema({
 var Messages = mongoose.model('Messages', Message);
 
 var Feedback = new Schema({
-  comment: string,
+  comment: String,
   // Patient rating: 1-5 rating for professional;
   // Professional rating: (possibly) 1-5 priority of patient severity
-  rating: number,
-  id: string // who the feedback is about
+  rating: Number,
+  id: String // who the feedback is about
 });
 
 var Feedbacks = mongoose.model('Feedbacks', Feedback);
