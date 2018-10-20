@@ -44,15 +44,15 @@ var User = Schema({
   type: String,
 
   // Appointments
-  requestedAppointments: [Appointments],
-  approvedAppointments: [Appointments],
+  requestedAppointments: [{ dateTime: Date, id: String }],
+  approvedAppointments: [{ dateTime: Date, id: String }],
   availableAppointments: [Date],
 
   // Messages between patient and professional
-  messages: [Messages],
+  messages: [{ dateTime: Date, text: String, id: String }],
 
   // Patient feedback: review on professionals, Professional feedback: personal note about patient
-  feedback: [Feedbacks]
+  feedback: [{ comment: String, rating: Number, id: String }]
 });
 
 var Users = mongoose.model('Users', User);
