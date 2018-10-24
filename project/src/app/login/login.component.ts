@@ -1,9 +1,11 @@
 import { Component, OnInit } from '@angular/core';
-import { Router } from '@angular/router';
+import { Router, Data } from '@angular/router';
 import { HttpClient } from '@angular/common/http';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { User } from '../models/user.model';
 import { Observable } from 'rxjs';
+import { DataService } from '../data.service';
+import { NgForm } from '@angular/forms';
 
 @Component({
   selector: 'app-login',
@@ -11,30 +13,46 @@ import { Observable } from 'rxjs';
   styleUrls: ['./login.component.css']
 })
 export class LoginComponent implements OnInit {
+  loggedInUser = new User();
   constructor(
     private router: Router,
-    private http: HttpClient,
-    private snackBar: MatSnackBar
+    private snackBar: MatSnackBar,
+    private data: DataService
   ) {}
 
-  ngOnInit() {}
+  ngOnInit() {
+    this.data.getLoggedInUser().subscribe(user => {
+      if (user !== null) {
+        this.loggedInUser = user;
+      } else if (user === null) {
+        this.loggedInUser.email = '';
+        this.loggedInUser.password = '';
+      }
+    });
+  }
 
-  onSubmit() {
-    console.log('onSubmit()');
-    this.http.get<Observable<User>>('api/maintenanceCalendar').subscribe(
-      data => {},
-      err => {
+  onSubmit(form: NgForm) {
+    console.log(form.value);
+    this.data.login(form.value.email, form.value.password).subscribe(user => {
+      if (user === null) {
         this.snackBar.open(
-          'Could not find account.  Please create a new account.',
+          'Account not found.  Please create an account.',
           '',
           {
             duration: 3000,
             verticalPosition: 'top',
-            panelClass: 'snackBarStyleError'
+            panelClass: 'snackBarStyle'
           }
         );
+      } else if (user !== null) {
+        this.loggedInUser = user;
+        if (this.loggedInUser.type.includes('patient')) {
+          this.router.navigateByUrl('/user');
+        } else if (this.loggedInUser.type.includes('professional')) {
+          this.router.navigateByUrl('/professional');
+        }
       }
-    );
+    });
   }
 
   onNewAccount() {
