@@ -18,7 +18,7 @@ const httpOptions = {
   providedIn: 'root'
 })
 export class DataService {
-  loggedInUser = new BehaviorSubject<any>(null);
+  loggedInUser = new BehaviorSubject<User>(new User());
 
   constructor(private http: HttpClient, private snackBar: MatSnackBar) {}
 
@@ -29,7 +29,7 @@ export class DataService {
   createNewAccount(form) {
     console.log(form);
     this.http
-      .put('api/newAccount', JSON.stringify(form), httpOptions)
+      .put<User>('api/newAccount', JSON.stringify(form), httpOptions)
       .subscribe(
         data => {
           console.log(data);
@@ -54,11 +54,16 @@ export class DataService {
 
   login(email, password) {
     this.http
-      .post('api/login', JSON.stringify({ email, password }), httpOptions)
+      .post<User>('api/login', JSON.stringify({ email, password }), httpOptions)
       .subscribe(
         data => {
           console.log(data);
           this.loggedInUser.next(data);
+          if (data === null) {
+            const user = new User();
+            user.email = email;
+            this.loggedInUser.next(user);
+          }
         },
         (err: HttpErrorResponse) => {
           console.log(err);

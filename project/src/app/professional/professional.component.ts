@@ -1,4 +1,6 @@
+import { User } from './../models/user.model';
 import { Component, OnInit } from '@angular/core';
+import { DataService } from '../data.service';
 
 @Component({
   selector: 'app-professional',
@@ -6,13 +8,13 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./professional.component.css']
 })
 export class ProfessionalComponent implements OnInit {
-  user: { firstName: string; lastName: string } = {
-    firstName: 'Oprah',
-    lastName: 'Winfrey'
-  };
+  user = new User();
 
-  constructor() {}
+  constructor(private data: DataService) {}
 
   ngOnInit() {
+    this.data.getLoggedInUser().subscribe(user => {
+      this.user = user;
+    });
   }
 }

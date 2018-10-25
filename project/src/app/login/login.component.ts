@@ -1,9 +1,7 @@
 import { Component, OnInit } from '@angular/core';
-import { Router, Data } from '@angular/router';
-import { HttpClient } from '@angular/common/http';
+import { Router } from '@angular/router';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { User } from '../models/user.model';
-import { Observable } from 'rxjs';
 import { DataService } from '../data.service';
 import { NgForm } from '@angular/forms';
 
@@ -34,17 +32,17 @@ export class LoginComponent implements OnInit {
   onSubmit(form: NgForm) {
     console.log(form.value);
     this.data.login(form.value.email, form.value.password).subscribe(user => {
-      if (user === null) {
-        this.snackBar.open(
-          'Account not found.  Please create an account.',
-          '',
-          {
-            duration: 3000,
-            verticalPosition: 'top',
-            panelClass: 'snackBarStyle'
-          }
-        );
-      } else if (user !== null) {
+      console.log(this.loggedInUser);
+      this.loggedInUser = user;
+      if (this.loggedInUser === null) {
+        this.loggedInUser = new User();
+        this.loggedInUser.email = form.value.email;
+        this.snackBar.open('Password incorrect or account not found.', '', {
+          duration: 3000,
+          verticalPosition: 'top',
+          panelClass: 'snackBarStyle'
+        });
+      } else if (this.loggedInUser.type !== undefined) {
         this.loggedInUser = user;
         if (this.loggedInUser.type.includes('patient')) {
           this.router.navigateByUrl('/user');

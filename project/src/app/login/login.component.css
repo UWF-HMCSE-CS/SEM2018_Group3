@@ -1,12 +1,36 @@
 .login-wrapper {
   display: grid;
-  grid-template-columns: 1fr 500px 1fr;
+  grid-template-columns: 1fr 500px 500px 1fr;
   grid-gap: 10px;
   grid-auto-rows: 200px;
   grid-template-areas:
-  '. . .'
-  '. login .'
-  '. . .';
+    '. logo logo .'
+    '. about-us login .'
+    '. . . .';
+}
+
+.logo {
+  grid-area: logo;
+  font-family: 'Roboto';
+  font-size: 50px;
+  align-self: center;
+  justify-self: center;
+  vertical-align: middle;
+  background-color: #e8e8e8;
+}
+
+.about-us {
+  grid-area: about-us;
+  font-family: 'Roboto';
+  font-size: 17px;
+  max-height: 225px;
+  align-self: center;
+  justify-self: center;
+  vertical-align: middle;
+  border: solid;
+  border-radius: 5%;
+  background-color: #e8e8e8;
+  box-shadow: 10px 10px 5px grey;
 }
 
 .login {
@@ -66,7 +90,6 @@
 
 @media only screen and (max-width: 500px) and (max-height: 500px) {
   .wrapper {
-    grid-template-areas:
-      '. login .';
+    grid-template-areas: '. login .';
   }
 }

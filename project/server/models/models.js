@@ -2,31 +2,6 @@ var mongoose = require('mongoose');
 var Schema = mongoose.Schema;
 var ObjectId = Schema.ObjectId;
 
-var Appointment = new Schema({
-  dateTime: Date,
-  id: String // who the appointment is with
-});
-
-var Appointments = mongoose.model('Appointments', Appointment);
-
-var Message = new Schema({
-  dateTime: Date,
-  text: String,
-  id: String // who the message is to
-});
-
-var Messages = mongoose.model('Messages', Message);
-
-var Feedback = new Schema({
-  comment: String,
-  // Patient rating: 1-5 rating for professional;
-  // Professional rating: (possibly) 1-5 priority of patient severity
-  rating: Number,
-  id: String // who the feedback is about
-});
-
-var Feedbacks = mongoose.model('Feedbacks', Feedback);
-
 var User = Schema({
   id: ObjectId,
 
@@ -46,7 +21,6 @@ var User = Schema({
   // Appointments
   requestedAppointments: [{ dateTime: Date, id: String }],
   approvedAppointments: [{ dateTime: Date, id: String }],
-  availableAppointments: [Date],
 
   // Messages between patient and professional
   messages: [{ dateTime: Date, text: String, id: String }],
@@ -62,6 +36,3 @@ var mongoDB =
 mongoose.connect(mongoDB);
 
 exports.Users = Users;
-exports.Appointments = Appointments;
-exports.Messages = Messages;
-exports.Feedbacks = Feedbacks;

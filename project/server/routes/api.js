@@ -12,28 +12,49 @@ var models = require('../models/models.js');
 // This bit is required for Angular to recognize that the response was OK (200)
 const bodyParser = require('body-parser');
 const app = express();
-app.use(bodyParser.urlencoded({ extended: true }));
+app.use(bodyParser.urlencoded({ extended: false }));
 app.use(bodyParser.json());
 
 router.put('/newAccount', (req, res) => {
-  var newAccount = new models.Users();
-  newAccount.firstName = req.body.firstName;
-  newAccount.lastName = req.body.lastName;
-  newAccount.address = req.body.address;
-  newAccount.email = req.body.email;
-  newAccount.password = req.body.password;
-  newAccount.save();
-  res.statusCode = 200;
-  res.json({ message: 'New account created!' });
+  var user = models.Users;
+  user.findOne({ email: req.body.email }, function(err, user) {
+    if (user) {
+      res.statusCode = 200;
+      res.json(user);
+    } else if (user == null) {
+      var newAccount = new models.Users({
+        firstName: req.body.firstName,
+        lastName: req.body.lastName,
+        address: req.body.address,
+        email: req.body.email,
+        password: req.body.password,
+        type: req.body.patientOrProfessional
+      });
+      newAccount.save(function(err) {
+        if (err) throw err;
+        else {
+          res.statusCode = 200;
+          res.json(newAccount);
+        }
+      });
+    }
+  });
   console.log('/newAccount');
 });
 
-router.get('/login', (req, res) => {
-  var user = new models.Users();
-  user.findByEmail(req.body.email, function(err, user) {
-    if (err) throw err;
-    console.log(user);
-    if (user) {
+router.post('/login', (req, res) => {
+  var user = models.Users;
+  user.findOne({ email: req.body.email }, function(err, user) {
+    if (user != null) {
+      if (user.password == req.body.password) {
+        res.statusCode = 200;
+        res.json(user);
+      } else {
+        res.statusCode = 200;
+        res.json(null);
+      }
+    }
+    if (user == null) {
       res.statusCode = 200;
       res.json(user);
     }
