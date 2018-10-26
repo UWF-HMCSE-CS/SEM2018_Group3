@@ -28,7 +28,7 @@ router.put('/newAccount', (req, res) => {
         address: req.body.address,
         email: req.body.email,
         password: req.body.password,
-        type: req.body.patientOrProfessional
+        type: req.body.type
       });
       newAccount.save(function(err) {
         if (err) throw err;
@@ -60,6 +60,32 @@ router.post('/login', (req, res) => {
     }
   });
   console.log('/login');
+});
+
+router.put('/updateUser', (req, res) => {
+  models.Users.user.findOneAndUpdate(
+    { email: req.body.originalEmail },
+    {
+      firstName: req.body.user.firstName,
+      lastName: req.body.user.lastName,
+      address: req.body.user.address,
+      email: req.body.user.email,
+      password: req.body.user.password,
+      type: req.body.user.type,
+      bio: req.body.user.bio
+    },
+    { new: true },
+    function(err, user) {
+      if (user) {
+        res.statusCode = 200;
+        res.json(user);
+      } else {
+        res.statusCode = 200;
+        res.json(null);
+      }
+    }
+  );
+  console.log('/updateUser');
 });
 
 /* GET api listing. */

@@ -1,3 +1,72 @@
-<p>
-  profile-patient works!
-</p>
+<form class="profile-form-component-wrapper"
+  #f="ngForm"
+  (ngSubmit)="onSubmit()">
+  <mat-form-field class="first-name">
+    <input matInput
+      name="firstName"
+      placeholder="First Name"
+      type="text"
+      [(ngModel)]="loggedInUser.firstName"
+      required>
+  </mat-form-field>
+  <mat-form-field class="last-name">
+    <input matInput
+      name="lastName"
+      placeholder="Last Name"
+      type="text"
+      [(ngModel)]="loggedInUser.lastName"
+      required>
+  </mat-form-field>
+  <mat-form-field class="address">
+    <input matInput
+      name="address"
+      placeholder="Address"
+      type="text"
+      [(ngModel)]="loggedInUser.address"
+      required
+      address>
+  </mat-form-field>
+  <mat-form-field class="profile-email">
+    <input matInput
+      name="email"
+      placeholder="Email"
+      type="text"
+      [(ngModel)]="loggedInUser.email"
+      required
+      email>
+  </mat-form-field>
+  <!--   <mat-form-field class="password">
+    <input matInput
+      name="password"
+      placeholder="Password"
+      type="password"
+      [(ngModel)]="loggedInUser.password"
+      required
+      password
+      minlength="8">
+  </mat-form-field> -->
+  <mat-form-field class="type-select">
+    <mat-select placeholder="Account Type"
+      required
+      name="type"
+      [(ngModel)]="loggedInUser.type">
+      <mat-option *ngFor="let professionalType of professionalTypes"
+        [value]="professionalType">
+        {{ professionalType }}
+      </mat-option>
+    </mat-select>
+  </mat-form-field>
+  <mat-form-field class="bio">
+    <textarea matInput
+      name="bio"
+      placeholder="Describe yourself and any issues you are having."
+      type="text"
+      matTextareaAutosize
+      matAutosizeMinRows=13
+      [(ngModel)]="loggedInUser.bio"></textarea>
+  </mat-form-field>
+  <button class="submit"
+    mat-button
+    type="submit"
+    [disabled]="!f.valid">Update</button>
+</form>

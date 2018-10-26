@@ -1,0 +1,71 @@
+.profile-form-component-wrapper {
+  display: grid;
+  grid-template-columns: 200px 200px 1fr;
+  grid-gap: 10px;
+  padding-top: 10px;
+  grid-auto-rows: 45px;
+  grid-template-areas:
+    'first-name  first-name  bio'
+    'last-name   last-name   bio'
+    'address     address     bio'
+    'profile-email       profile-email       bio'
+    'type-select type-select bio'
+    '.           .           .'
+    'submit      submit      submit';
+}
+
+.first-name {
+  grid-area: first-name;
+  display: grid;
+  padding-left: 15px;
+}
+
+.last-name {
+  grid-area: last-name;
+  display: grid;
+  padding-left: 15px;
+}
+
+.address {
+  grid-area: address;
+  display: grid;
+  padding-left: 15px;
+}
+
+.profile-email {
+  grid-area: profile-email;
+  display: grid;
+  padding-left: 15px;
+}
+
+.password {
+  grid-area: password;
+  display: grid;
+}
+
+.type-select {
+  grid-area: type-select;
+  display: grid;
+  padding-left: 15px;
+}
+
+.bio {
+  grid-area: bio;
+  display: grid;
+  padding-left: 15px;
+  padding-right: 15px;
+  border: solid;
+  border-radius: 5%;
+}
+
+.submit {
+  grid-area: submit;
+  display: grid;
+  border: solid;
+  border-radius: 20%;
+  background-color: lightgray;
+  max-height: 50px;
+  max-width: 175px;
+  margin-left: 40%;
+  margin-bottom: 10px;
+}

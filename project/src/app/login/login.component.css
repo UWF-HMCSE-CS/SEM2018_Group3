@@ -16,7 +16,7 @@
   align-self: center;
   justify-self: center;
   vertical-align: middle;
-  background-color: #e8e8e8;
+  background-color: inherit;
 }
 
 .about-us {
@@ -29,7 +29,7 @@
   vertical-align: middle;
   border: solid;
   border-radius: 5%;
-  background-color: #e8e8e8;
+  background-color: inherit;
   box-shadow: 10px 10px 5px grey;
 }
 

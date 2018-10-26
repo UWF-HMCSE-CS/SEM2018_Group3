@@ -7,7 +7,6 @@ import {
   HttpHeaders
 } from '@angular/common/http';
 import { MatSnackBar } from '@angular/material/snack-bar';
-
 const httpOptions = {
   headers: new HttpHeaders({
     'Content-Type': 'application/json'
@@ -26,13 +25,11 @@ export class DataService {
     return this.loggedInUser;
   }
 
-  createNewAccount(form) {
-    console.log(form);
+  createNewAccount(form): BehaviorSubject<User> {
     this.http
       .put<User>('api/newAccount', JSON.stringify(form), httpOptions)
       .subscribe(
         data => {
-          console.log(data);
           this.loggedInUser.next(data);
           this.snackBar.open('New Account Created Successfully.', '', {
             duration: 3000,
@@ -52,7 +49,7 @@ export class DataService {
     return this.loggedInUser;
   }
 
-  login(email, password) {
+  login(email, password): BehaviorSubject<User> {
     this.http
       .post<User>('api/login', JSON.stringify({ email, password }), httpOptions)
       .subscribe(
@@ -64,6 +61,36 @@ export class DataService {
             user.email = email;
             this.loggedInUser.next(user);
           }
+        },
+        (err: HttpErrorResponse) => {
+          console.log(err);
+          this.snackBar.open('An Error Has Occurred. Please try again.', '', {
+            duration: 3000,
+            verticalPosition: 'top',
+            panelClass: 'snackBarStyleError'
+          });
+        }
+      );
+    return this.loggedInUser;
+  }
+
+  updateUser(originalEmail: string, user: User): BehaviorSubject<User> {
+    this.http
+      .put<User>(
+        'api/updateUser',
+        JSON.stringify({ originalEmail, user }),
+        httpOptions
+      )
+      .subscribe(
+        data => {
+          console.log('what came back');
+          console.log(data);
+          this.loggedInUser.next(data);
+          this.snackBar.open('Account Updated Successfully.', '', {
+            duration: 3000,
+            verticalPosition: 'top',
+            panelClass: 'snackBarStyle'
+          });
         },
         (err: HttpErrorResponse) => {
           console.log(err);

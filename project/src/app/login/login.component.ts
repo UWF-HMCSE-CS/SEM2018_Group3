@@ -30,9 +30,7 @@ export class LoginComponent implements OnInit {
   }
 
   onSubmit(form: NgForm) {
-    console.log(form.value);
     this.data.login(form.value.email, form.value.password).subscribe(user => {
-      console.log(this.loggedInUser);
       this.loggedInUser = user;
       if (this.loggedInUser === null) {
         this.loggedInUser = new User();
@@ -44,9 +42,9 @@ export class LoginComponent implements OnInit {
         });
       } else if (this.loggedInUser.type !== undefined) {
         this.loggedInUser = user;
-        if (this.loggedInUser.type.includes('patient')) {
+        if (this.loggedInUser.type.includes('Patient')) {
           this.router.navigateByUrl('/user');
-        } else if (this.loggedInUser.type.includes('professional')) {
+        } else {
           this.router.navigateByUrl('/professional');
         }
       }
