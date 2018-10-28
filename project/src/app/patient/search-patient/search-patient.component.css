@@ -1,0 +1,61 @@
+table {
+  padding-left: 10px;
+  padding-right: 10px;
+  width: 100%;
+}
+
+.selected-professional-wrapper {
+  display: grid;
+  padding: 10px;
+  grid-auto-columns: 1fr 1fr 1fr;
+  grid-gap: 10px;
+  grid-template-areas:
+    'back . .'
+    '. . .'
+    'professional-info appointment-date appointment-time'
+    '. request-appointment .'
+    '. submit .';
+}
+
+.back {
+  grid-area: back;
+  justify-self: left;
+}
+
+.professional-info {
+  grid-area: professional-info;
+  font-size: 17px;
+  padding-left: 20px;
+  align-items: center;
+  justify-content: right;
+  display: grid;
+}
+
+.appointment-date {
+  grid-area: appointment-date;
+  align-items: center;
+  justify-content: center;
+  display: grid;
+}
+
+.appointment-time {
+  grid-area: appointment-time;
+}
+
+.request-appointment {
+  grid-area: request-appointment;
+  align-items: center;
+  justify-content: center;
+  display: grid;
+}
+
+.submit {
+  grid-area: submit;
+  border: solid;
+  border-radius: 20%;
+  background-color: lightgray;
+  max-height: 50px;
+  max-width: 175px;
+  align-items: center;
+  justify-content: center;
+}

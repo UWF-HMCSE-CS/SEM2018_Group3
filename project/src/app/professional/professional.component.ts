@@ -22,4 +22,8 @@ export class ProfessionalComponent implements OnInit {
       }
     });
   }
+
+  logout() {
+    this.data.logout();
+  }
 }

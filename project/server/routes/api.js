@@ -16,8 +16,7 @@ app.use(bodyParser.urlencoded({ extended: false }));
 app.use(bodyParser.json());
 
 router.put('/newAccount', (req, res) => {
-  var user = models.Users;
-  user.findOne({ email: req.body.email }, function(err, user) {
+  models.Users.findOne({ email: req.body.email }, function(err, user) {
     if (user) {
       res.statusCode = 200;
       res.json(user);
@@ -43,8 +42,8 @@ router.put('/newAccount', (req, res) => {
 });
 
 router.post('/login', (req, res) => {
-  var user = models.Users;
-  user.findOne({ email: req.body.email }, function(err, user) {
+  models.Users.findOne({ email: req.body.email }, function(err, user) {
+    if (err) throw err;
     if (user != null) {
       if (user.password == req.body.password) {
         res.statusCode = 200;
@@ -63,7 +62,7 @@ router.post('/login', (req, res) => {
 });
 
 router.put('/updateUser', (req, res) => {
-  models.Users.user.findOneAndUpdate(
+  models.Users.findOneAndUpdate(
     { email: req.body.originalEmail },
     {
       firstName: req.body.user.firstName,
@@ -76,6 +75,7 @@ router.put('/updateUser', (req, res) => {
     },
     { new: true },
     function(err, user) {
+      if (err) throw err;
       if (user) {
         res.statusCode = 200;
         res.json(user);
@@ -86,6 +86,49 @@ router.put('/updateUser', (req, res) => {
     }
   );
   console.log('/updateUser');
+});
+
+router.get('/allProfessionals', (req, res) => {
+  models.Users.find({ type: { $ne: 'Patient' } }, function(err, users) {
+    res.send(users);
+  });
+  console.log('/allProfessionals');
+});
+
+router.post('/requestAppointment', (req, res) => {
+  models.Users.findByIdAndUpdate(
+    req.body.patient,
+    {
+      $push: {
+        requestedAppointments: {
+          dateTime: req.body.appointment,
+          id: req.body.professional
+        }
+      }
+    },
+    { upsert: true },
+    function(err, user) {
+      if (err) throw err;
+      res.json(user);
+    }
+  );
+  models.Users.findByIdAndUpdate(
+    req.body.professional,
+    {
+      $push: {
+        requestedAppointments: {
+          dateTime: req.body.appointment,
+          id: req.body.patient
+        }
+      }
+    },
+    { upsert: true },
+    function(err, user) {
+      if (err) throw err;
+    }
+  );
+  res.statusCode = 200;
+  console.log('/requestAppointment');
 });
 
 /* GET api listing. */

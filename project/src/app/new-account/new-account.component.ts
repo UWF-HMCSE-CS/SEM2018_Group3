@@ -10,8 +10,9 @@ import { AccountType } from '../models/account-type.model';
   styleUrls: ['./new-account.component.css']
 })
 export class NewAccountComponent implements OnInit {
-  patientOrProfessional = 'patient';
-  professionalTypes: string[] = new AccountType().getProfessionalTypesArray();
+  accountTypes = new AccountType();
+  patientOrProfessional = this.accountTypes.PATIENT;
+  professionalTypes: string[] = this.accountTypes.getProfessionalTypesArray();
   professionalTypeSelected = '';
   @ViewChild('f')
   form: NgForm;
@@ -23,7 +24,7 @@ export class NewAccountComponent implements OnInit {
 
   onSubmit() {
     this.data.createNewAccount(this.form.value).subscribe(user => {});
-
+    this.printForm();
     // Take user back to login page
     this.router.navigateByUrl('/login');
   }

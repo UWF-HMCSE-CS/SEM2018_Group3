@@ -17,7 +17,6 @@
   vertical-align: middle;
   border: solid;
   border-radius: 5%;
-  background-color: #e8e8e8;
   box-shadow: 10px 10px 5px grey;
 }
 
@@ -41,11 +40,11 @@
   grid-gap: 10px;
   grid-auto-rows: 45px;
   grid-template-areas:
-  'first-name last-name'
-  'address    address'
-  'email      password'
-  'type       type'
-  'submit     submit';
+    'first-name last-name'
+    'address    address'
+    'email      password'
+    'type       type'
+    'submit     submit';
 }
 
 .first-name {

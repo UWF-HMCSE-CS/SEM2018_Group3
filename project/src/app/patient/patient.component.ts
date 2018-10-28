@@ -21,4 +21,8 @@ export class PatientComponent implements OnInit {
       }
     });
   }
+
+  logout() {
+    this.data.logout();
+  }
 }

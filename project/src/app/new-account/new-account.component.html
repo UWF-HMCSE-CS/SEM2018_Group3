@@ -1,6 +1,6 @@
 <div class="new-account-wrapper">
   <div class="new-account">
-    <form [ngClass]="patientOrProfessional === 'professional' ? 'new-account-form-component-wrapper' : 'new-account-form-component-less'"
+    <form [ngClass]="patientOrProfessional === 'Professional' ? 'new-account-form-component-wrapper' : 'new-account-form-component-less'"
       #f="ngForm"
       (ngSubmit)="onSubmit()">
       <mat-form-field class="first-name">
@@ -67,6 +67,7 @@
             name="type"
             ngModel>
             <mat-option *ngFor="let professionalType of professionalTypes"
+              required
               [value]="professionalType">
               {{ professionalType }}
             </mat-option>

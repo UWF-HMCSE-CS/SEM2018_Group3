@@ -21,9 +21,23 @@
     </mat-tab-group>
   </div>
   <div class="profile">
-    <fa-icon class="fa-2x"
-      icon="user"></fa-icon>&nbsp;
-    <span class="mat-typography"
-      style="font-size: 20px;">{{ user.lastName }}, {{ user.firstName }}</span>
+    <span class="noButtonLook pointer"
+      [matMenuTriggerFor]="menu">
+      <fa-icon class="fa-2x"
+        icon="user"></fa-icon>&nbsp;
+      <span class="mat-typography"
+        style="font-size: 20px;">{{ user.lastName }}, {{ user.firstName }}&nbsp;</span>
+      <i class="fa fa-caret-down blueText"></i>
+    </span>
+    <mat-menu #menu="matMenu"
+      [overlapTrigger]="false"
+      xPosition="after">
+      <button mat-menu-item
+        (click)="logout()"
+        [routerLink]="['/login']">
+        <i class="fa fa-user-o"></i>&nbsp;&nbsp;
+        <span>Logout</span>
+      </button>
+    </mat-menu>
   </div>
 </div>

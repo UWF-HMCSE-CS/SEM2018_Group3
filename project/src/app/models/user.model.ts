@@ -3,7 +3,7 @@ import { Appointment } from './appointment.model';
 import { Feedback } from './feedback.model';
 
 export class User {
-  id: string;
+  _id: string;
 
   // Profile information
   firstName: string;
@@ -21,7 +21,6 @@ export class User {
   // Appointments
   requestedAppointments: Appointment[];
   approvedAppointments: Appointment[];
-  availableAppointments: Date[];
 
   // Messages between patient and professional
   messages: Message[];
