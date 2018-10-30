@@ -19,6 +19,7 @@ const httpOptions = {
 export class DataService {
   private loggedInUser = new BehaviorSubject<User>(new User());
   private allProfessionals = new BehaviorSubject<User[]>([]);
+  private allPatients = new BehaviorSubject<User[]>([]);
 
   constructor(private http: HttpClient, private snackBar: MatSnackBar) {}
 
@@ -45,6 +46,7 @@ export class DataService {
       .subscribe(
         data => {
           this.loggedInUser.next(data);
+          this.saveUserLocally(data);
           this.snackBar.open('New Account Created Successfully.', '', {
             duration: 3000,
             verticalPosition: 'top',
@@ -128,14 +130,91 @@ export class DataService {
     return this.allProfessionals;
   }
 
+  getAllPatients(): BehaviorSubject<User[]> {
+    this.http
+      .get<User[]>('api/allPatients', httpOptions)
+      .subscribe(patients => {
+        this.allPatients.next(patients);
+      });
+    return this.allPatients;
+  }
+
   requestAppointment(appt): BehaviorSubject<User> {
     // This method stringifies the date, changing the time to ZULU time
     // The offset between ZULU and Central is +5 hours
-    // Subtract 5 hours when reading the times
+    // Converting the date back to a Date type changes the time back correctly
+    console.log(JSON.stringify(appt));
     this.http
-      .post('api/requestAppointment', JSON.stringify(appt), httpOptions)
+      .post<User>('api/requestAppointment', JSON.stringify(appt), httpOptions)
       .subscribe((returnedUser: User) => {
         this.loggedInUser.next(returnedUser);
+        this.saveUserLocally(returnedUser);
+        if (returnedUser !== null) {
+          this.snackBar.open('Appointment requested!', '', {
+            duration: 3000,
+            verticalPosition: 'top',
+            panelClass: 'snackBarStyle'
+          });
+        }
+      });
+    return this.loggedInUser;
+  }
+
+  cancelRequestedAppointment(appt): BehaviorSubject<User> {
+    this.http
+      .post<User>(
+        'api/cancelRequestedAppointment',
+        JSON.stringify(appt),
+        httpOptions
+      )
+      .subscribe(returnedUser => {
+        this.loggedInUser.next(returnedUser);
+        this.saveUserLocally(returnedUser);
+        if (returnedUser !== null) {
+          this.snackBar.open('Appointment canceled!', '', {
+            duration: 3000,
+            verticalPosition: 'top',
+            panelClass: 'snackBarStyle'
+          });
+        }
+      });
+    return this.loggedInUser;
+  }
+
+  cancelApprovedAppointment(appt): BehaviorSubject<User> {
+    this.http
+      .post<User>(
+        'api/cancelApprovedAppointment',
+        JSON.stringify(appt),
+        httpOptions
+      )
+      .subscribe(returnedUser => {
+        this.loggedInUser.next(returnedUser);
+        this.saveUserLocally(returnedUser);
+        if (returnedUser !== null) {
+          this.snackBar.open('Appointment canceled!', '', {
+            duration: 3000,
+            verticalPosition: 'top',
+            panelClass: 'snackBarStyle'
+          });
+        }
+      });
+    return this.loggedInUser;
+  }
+
+  approveAppointment(appt): BehaviorSubject<User> {
+    this.http
+      .post<User>('api/approveAppointment', JSON.stringify(appt), httpOptions)
+      .subscribe(returnedUser => {
+        this.loggedInUser.next(returnedUser);
+        this.saveUserLocally(returnedUser);
+        if (returnedUser !== null) {
+          this.snackBar.open('Approved appointment!', '', {
+            duration: 3000,
+            verticalPosition: 'top',
+            panelClass: 'snackBarStyle'
+          });
+        }
       });
     return this.loggedInUser;
   }

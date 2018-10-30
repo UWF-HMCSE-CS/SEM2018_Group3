@@ -37,6 +37,7 @@ import { ProfilePatientComponent } from './patient/profile-patient/profile-patie
 import { ProfileProfessionalComponent } from './professional/profile-professional/profile-professional.component';
 import { AboutUsComponent } from './about-us/about-us.component';
 import { HttpClientModule } from '@angular/common/http';
+import { AppointmentsComponent } from './appointments/appointments.component';
 
 library.add(faNotesMedical, faUser, faAngleLeft);
 
@@ -72,7 +73,8 @@ const appRoutes: Routes = [
     SearchPatientComponent,
     ProfilePatientComponent,
     ProfileProfessionalComponent,
-    AboutUsComponent
+    AboutUsComponent,
+    AppointmentsComponent
   ],
   imports: [
     BrowserModule,

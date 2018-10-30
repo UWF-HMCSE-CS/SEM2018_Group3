@@ -34,8 +34,10 @@
   </ng-container>
 
   <tr mat-header-row
+    style="height: 30px !important;"
     *matHeaderRowDef="columns"></tr>
   <tr mat-row
+    style="height: 30px !important;"
     *matRowDef="let row; columns: columns;"
     (click)="chooseProfessional(row)"></tr>
 </table>
