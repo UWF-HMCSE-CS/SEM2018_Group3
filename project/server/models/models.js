@@ -7,21 +7,48 @@ var validateEmail = function(email) {
   return re.test(email)
 };
 
+var validateFirstName = function(firstName) {
+  var re = /^[a-z ,.'-]+$/i;
+  return re.test(firstName)
+};
+
+var validateLastName = function(lastName) {
+  var re = /^[a-z ,.'-]+$/i;
+  return re.test(lastName)
+};
+
+var validateAddress = function(address) {
+  var re = "[\w',-\\/.\s]";
+  return re.test(address)
+};
+
 var User = Schema({
   id: ObjectId,
 
   // Profile information
   firstName: {
     type: String,
-    required: true 
+    min: [2, 'Insufficient letters'],
+    max: 30,
+    required: true,
+    lowercase: true,
+    required: 'First name is required',
+    validate: [validateFirstName, 'Please enter a valid first name'],
+    match: [/^[a-z ,.'-]+$/i, 'Please enter a valid first name']
   },
   lastName: {
     type: String,
-    required: true 
+    min: [2, 'Insufficient letters'],
+    max: 30,
+    required: true,
+    lowercase: true,
+    required: 'Last name is required',
+    validate: [validateLastName, 'Please enter a valid last name'],
+    match: [/^[a-z ,.'-]+$/i, 'Please enter a valid last name']
   },
   address: {
     type: String,
-    required: true 
+    required: true,
   },
   email: {
     type: String,
