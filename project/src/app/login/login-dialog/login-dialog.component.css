@@ -1,0 +1,47 @@
+.form-components-wrapper {
+  display: grid;
+  grid-template-columns: 200px 200px;
+  grid-gap: 10px;
+  grid-template-areas:
+    'login-email    login-email'
+    'login-password login-password'
+    'login-button   cancel-button';
+}
+
+.login-email {
+  grid-area: login-email;
+  width: 90%;
+  padding-left: 15px;
+  padding-top: 5px;
+}
+
+.login-password {
+  grid-area: login-password;
+  width: 90%;
+  padding-left: 15px;
+  padding-top: 5px;
+}
+
+.login-button {
+  grid-area: login-button;
+  border: solid;
+  border-radius: 20%;
+  border-color: green;
+  color: green;
+  background-color: white;
+  margin-left: 40%;
+  max-height: 50px;
+  max-width: 100px;
+}
+
+.cancel-button {
+  grid-area: cancel-button;
+  border: solid;
+  border-radius: 20%;
+  border-color: red;
+  color: red;
+  background-color: white;
+  margin-right: 40%;
+  max-height: 50px;
+  max-width: 100px;
+}

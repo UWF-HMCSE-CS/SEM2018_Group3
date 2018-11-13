@@ -37,6 +37,9 @@ import { ProfilePatientComponent } from './patient/profile-patient/profile-patie
 import { ProfileProfessionalComponent } from './professional/profile-professional/profile-professional.component';
 import { AboutUsComponent } from './about-us/about-us.component';
 import { HttpClientModule } from '@angular/common/http';
+import { MatDialogModule } from '@angular/material/dialog';
+import { LoginDialogComponent } from './login/login-dialog/login-dialog.component';
+import { NewAccountDialogComponent } from './login/new-account-dialog/new-account-dialog.component';
 
 library.add(faNotesMedical, faUser, faAngleLeft);
 
@@ -72,7 +75,9 @@ const appRoutes: Routes = [
     SearchPatientComponent,
     ProfilePatientComponent,
     ProfileProfessionalComponent,
-    AboutUsComponent
+    AboutUsComponent,
+    LoginDialogComponent,
+    NewAccountDialogComponent
   ],
   imports: [
     BrowserModule,
@@ -93,8 +98,10 @@ const appRoutes: Routes = [
     MatTableModule,
     MatTooltipModule,
     MatDatepickerModule,
-    MatNativeDateModule
+    MatNativeDateModule,
+    MatDialogModule
   ],
+  entryComponents: [LoginDialogComponent, NewAccountDialogComponent],
   providers: [MatNativeDateModule],
   bootstrap: [AppComponent]
 })

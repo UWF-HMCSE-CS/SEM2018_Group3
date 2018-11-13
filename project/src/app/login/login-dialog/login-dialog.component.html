@@ -1,0 +1,34 @@
+<h2 mat-dialog-title>Login</h2>
+<mat-dialog-content>
+  <form class="form-components-wrapper"
+    #f="ngForm"
+    (ngSubmit)="onSubmit(f)">
+    <mat-form-field class="login-email">
+      <input matInput
+        name="email"
+        placeholder="Email"
+        type="text"
+        [(ngModel)]="loggedInUser.email"
+        required
+        email>
+    </mat-form-field>
+    <mat-form-field class="login-password">
+      <input matInput
+        name="password"
+        placeholder="Password"
+        type="password"
+        ngModel
+        required
+        password
+        minlength="8">
+    </mat-form-field>
+    <button mat-button
+      type="submit"
+      [disabled]="!f.valid"
+      class="login-button">Login</button>
+    <button mat-button
+      class="cancel-button"
+      type="button"
+      mat-dialog-close>Cancel</button>
+  </form>
+</mat-dialog-content>

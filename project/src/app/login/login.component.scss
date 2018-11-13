@@ -1,0 +1,64 @@
+$button-max-width: 125px;
+$button-max-height: 35px;
+
+.login-wrapper {
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr 1fr;
+  grid-gap: 20px;
+  /* autoprefixer: off */
+  grid-auto-rows: 150px;
+  grid-template-areas:
+    '. logo logo .'
+    '. about-us about-us  .'
+    '. about-us about-us  .'
+    '. login-button login-new-account .';
+}
+
+.logo {
+  grid-area: logo;
+  font-family: 'backyard';
+  font-size: 50px;
+  justify-self: center;
+  vertical-align: bottom;
+  background-color: inherit;
+}
+
+.about-us {
+  grid-area: about-us;
+  font-family: 'backyard';
+  font-size: 15px;
+  max-width: 600px;
+  align-self: center;
+  justify-self: center;
+  vertical-align: middle;
+  border: solid;
+  border-radius: 5%;
+  background-color: inherit;
+  box-shadow: 10px 10px 5px grey;
+}
+
+.login-button {
+  grid-area: login-button;
+  border: solid;
+  border-radius: 20%;
+  border-color: green;
+  color: green;
+  font-family: 'backyard' !important;
+  background-color: white;
+  justify-self: end;
+  margin-right: 20px;
+  max-height: $button-max-height;
+  max-width: $button-max-width;
+}
+.login-new-account {
+  grid-area: login-new-account;
+  border: solid;
+  border-radius: 20%;
+  border-color: blue;
+  color: blue;
+  font-family: 'backyard' !important;
+  background-color: white;
+  margin-left: 20px;
+  max-height: $button-max-height;
+  max-width: $button-max-width;
+}

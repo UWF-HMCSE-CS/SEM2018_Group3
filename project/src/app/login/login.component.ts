@@ -1,53 +1,32 @@
+import { NewAccountDialogComponent } from './new-account-dialog/new-account-dialog.component';
+import { LoginDialogComponent } from './login-dialog/login-dialog.component';
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
-import { MatSnackBar } from '@angular/material/snack-bar';
 import { User } from '../models/user.model';
-import { DataService } from '../data.service';
-import { NgForm } from '@angular/forms';
+import { MatDialog } from '@angular/material';
 
 @Component({
   selector: 'app-login',
   templateUrl: './login.component.html',
-  styleUrls: ['./login.component.css']
+  styleUrls: ['./login.component.scss']
 })
 export class LoginComponent implements OnInit {
   loggedInUser = new User();
-  constructor(
-    private router: Router,
-    private snackBar: MatSnackBar,
-    private data: DataService
-  ) {}
+  constructor(private router: Router, public dialog: MatDialog) {}
 
-  ngOnInit() {
-    this.data.getLoggedInUser().subscribe(user => {
-      if (user !== null) {
-        this.loggedInUser = user;
-      } else if (user === null) {
-        this.loggedInUser.email = '';
-        this.loggedInUser.password = '';
-      }
+  ngOnInit() {}
+
+  openLoginDialog() {
+    this.dialog.open(LoginDialogComponent, {
+      width: '450px',
+      height: '315px'
     });
   }
 
-  onSubmit(form: NgForm) {
-    this.data.login(form.value.email, form.value.password).subscribe(user => {
-      this.loggedInUser = user;
-      if (this.loggedInUser === null) {
-        this.loggedInUser = new User();
-        this.loggedInUser.email = form.value.email;
-        this.snackBar.open('Password incorrect or account not found.', '', {
-          duration: 3000,
-          verticalPosition: 'top',
-          panelClass: 'snackBarStyle'
-        });
-      } else if (this.loggedInUser.type !== undefined) {
-        this.loggedInUser = user;
-        if (this.loggedInUser.type.includes('Patient')) {
-          this.router.navigateByUrl('/user');
-        } else {
-          this.router.navigateByUrl('/professional');
-        }
-      }
+  openNewAccountDialog() {
+    this.dialog.open(NewAccountDialogComponent, {
+      width: '600px',
+      height: '600px'
     });
   }
 

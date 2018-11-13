@@ -1,0 +1,86 @@
+<h2 mat-dialog-title>Create New Account</h2>
+<mat-dialog-content>
+  <form [ngClass]="patientOrProfessional === 'Professional' ? 'new-account-form-component-wrapper' : 'new-account-form-component-less'"
+    #f="ngForm"
+    (ngSubmit)="onSubmit()">
+    <mat-form-field class="first-name">
+      <input matInput
+        name="firstName"
+        placeholder="First Name"
+        type="text"
+        ngModel
+        required>
+    </mat-form-field>
+    <mat-form-field class="last-name">
+      <input matInput
+        name="lastName"
+        placeholder="Last Name"
+        type="text"
+        ngModel
+        required>
+    </mat-form-field>
+    <mat-form-field class="address">
+      <input matInput
+        name="address"
+        placeholder="Address"
+        type="text"
+        ngModel
+        address>
+    </mat-form-field>
+    <mat-form-field class="email">
+      <input matInput
+        name="email"
+        placeholder="Email"
+        type="text"
+        ngModel
+        required
+        email>
+    </mat-form-field>
+    <mat-form-field class="password">
+      <input matInput
+        name="password"
+        placeholder="Password"
+        type="password"
+        ngModel
+        required
+        password
+        minlength="8">
+    </mat-form-field>
+    <mat-radio-group class="type"
+      layout="row"
+      ngModel
+      [(ngModel)]="patientOrProfessional"
+      name="patientOrProfessional">
+      <mat-radio-button style="padding-left: 30px"
+        type="radio"
+        value="Patient">Looking for help</mat-radio-button>
+      <mat-radio-button style="padding-left: 30px"
+        type="radio"
+        value="Professional">Looking to help</mat-radio-button>
+    </mat-radio-group>
+    <div *ngIf="patientOrProfessional === 'Professional'">
+      <mat-form-field style="padding-left: 60%; margin-bottom: 20px !important; max-width: 150px;">
+        <mat-select class="type-select"
+          placeholder="Type of Help"
+          required
+          #select
+          name="type"
+          ngModel>
+          <mat-option *ngFor="let professionalType of professionalTypes"
+            required
+            [value]="professionalType">
+            {{ professionalType }}
+          </mat-option>
+        </mat-select>
+      </mat-form-field>
+    </div>
+    <button class="submit-new-account-button"
+      mat-button
+      type="submit"
+      [disabled]="!f.valid">Create</button>
+    <button class="cancel-button"
+      mat-button
+      type="button"
+      [disabled]="!f.valid">Create</button>
+  </form>
+</mat-dialog-content>

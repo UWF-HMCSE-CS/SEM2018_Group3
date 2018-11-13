@@ -3,6 +3,7 @@
   grid-template-columns: 200px 200px 1fr;
   grid-gap: 10px;
   padding-top: 10px;
+  /* autoprefixer: off */
   grid-auto-rows: 45px;
   grid-template-areas:
     'first-name  first-name  bio'
