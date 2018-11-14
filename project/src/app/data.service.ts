@@ -165,12 +165,20 @@ export class DataService {
   requestAppointment(appt): BehaviorSubject<User> {
     // This method stringifies the date, changing the time to ZULU time
     // The offset between ZULU and Central is +5 hours
-    // Subtract 5 hours when reading the times
+    // Converting the date back to a Date type changes the time back correctly
+    console.log(JSON.stringify(appt));
     this.http
-      .post('api/requestAppointment', JSON.stringify(appt), httpOptions)
+      .post<User>('api/requestAppointment', JSON.stringify(appt), httpOptions)
       .subscribe((returnedUser: User) => {
         this.loggedInUser.next(returnedUser);
-        console.log(returnedUser);
+        this.saveUserLocally(returnedUser);
+        if (returnedUser !== null) {
+          this.snackBar.open('Appointment requested!', '', {
+            duration: 3000,
+            verticalPosition: 'top',
+            panelClass: 'snackBarStyle'
+          });
+        }
       });
     return this.loggedInUser;
   }
