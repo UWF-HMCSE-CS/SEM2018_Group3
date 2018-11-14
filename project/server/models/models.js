@@ -17,11 +17,6 @@ var validateLastName = function(lastName) {
   return re.test(lastName)
 };
 
-var validateAddress = function(address) {
-  var re = "[\w',-\\/.\s]";
-  return re.test(address)
-};
-
 var User = Schema({
   id: ObjectId,
 
@@ -34,7 +29,7 @@ var User = Schema({
     lowercase: true,
     required: 'First name is required',
     validate: [validateFirstName, 'Please enter a valid first name'],
-    match: [/^[a-z ,.'-]+$/i, 'Please enter a valid first name']
+    match: [/^[a-zA-Z ,.'-]+$/i, 'Please enter a valid first name']
   },
   lastName: {
     type: String,
@@ -44,11 +39,14 @@ var User = Schema({
     lowercase: true,
     required: 'Last name is required',
     validate: [validateLastName, 'Please enter a valid last name'],
-    match: [/^[a-z ,.'-]+$/i, 'Please enter a valid last name']
+    match: [/^[a-zA-Z ,.'-]+$/i, 'Please enter a valid last name']
   },
   address: {
     type: String,
     required: true,
+    //Incorrect validation (Figure out how to validate address)
+    //validate: \d{1,5}\s\w.\s(\b\w*\b\s){1,2}\w*\.
+
   },
   email: {
     type: String,
