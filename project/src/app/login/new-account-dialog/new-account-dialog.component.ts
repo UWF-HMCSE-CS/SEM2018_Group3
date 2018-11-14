@@ -23,7 +23,7 @@ export class NewAccountDialogComponent implements OnInit {
   ngOnInit() {}
 
   onSubmit() {
-    this.data.createNewAccount(this.form.value).subscribe(user => {});
+    this.data.createNewAccount(this.form.value);
     console.log(this.form.value);
     // Take user back to login page
     this.router.navigateByUrl('/login');

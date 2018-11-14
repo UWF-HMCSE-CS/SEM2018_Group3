@@ -25,8 +25,8 @@ export class LoginComponent implements OnInit {
 
   openNewAccountDialog() {
     this.dialog.open(NewAccountDialogComponent, {
-      width: '600px',
-      height: '600px'
+      width: '650px',
+      height: '425px'
     });
   }
 
