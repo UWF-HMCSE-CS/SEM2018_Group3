@@ -117,6 +117,8 @@ export class SearchPatientComponent implements OnInit {
       professional: this.chosenProf._id,
       appointment: this.chosenDateAndTime
     };
+    console.log(appt);
+    this.data.updateUserLocally(this.loggedInUser);
     this.data.requestAppointment(appt).subscribe(user => {
       if (user !== null) {
         this.chosenDateAndTime = undefined;

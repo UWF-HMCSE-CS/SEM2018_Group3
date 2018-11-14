@@ -7,6 +7,9 @@ import {
   HttpHeaders
 } from '@angular/common/http';
 import { MatSnackBar } from '@angular/material/snack-bar';
+import { AccountType } from './models/account-type.model';
+import { Router } from '@angular/router';
+import { MatDialog } from '@angular/material';
 const httpOptions = {
   headers: new HttpHeaders({
     'Content-Type': 'application/json'
@@ -17,10 +20,17 @@ const httpOptions = {
   providedIn: 'root'
 })
 export class DataService {
+  accountTypes = new AccountType();
   private loggedInUser = new BehaviorSubject<User>(new User());
   private allProfessionals = new BehaviorSubject<User[]>([]);
+  private allPatients = new BehaviorSubject<User[]>([]);
 
-  constructor(private http: HttpClient, private snackBar: MatSnackBar) {}
+  constructor(
+    private http: HttpClient,
+    private snackBar: MatSnackBar,
+    private router: Router,
+    private dialog: MatDialog
+  ) {}
 
   getLoggedInUser() {
     const user: User = JSON.parse(localStorage.getItem('user'));
@@ -45,6 +55,16 @@ export class DataService {
       .subscribe(
         data => {
           this.loggedInUser.next(data);
+          if (data) {
+            this.saveUserLocally(data);
+            if (data.type.includes(this.accountTypes.PATIENT)) {
+              this.router.navigateByUrl('user');
+            } else {
+              this.router.navigateByUrl('professional');
+            }
+            this.dialog.closeAll();
+          }
+
           this.snackBar.open('New Account Created Successfully.', '', {
             duration: 3000,
             verticalPosition: 'top',
@@ -119,6 +139,11 @@ export class DataService {
     return this.loggedInUser;
   }
 
+  updateUserLocally(user: User) {
+    this.saveUserLocally(user);
+    this.loggedInUser.next(user);
+  }
+
   getAllProfessionals(): BehaviorSubject<User[]> {
     this.http
       .get<User[]>('api/allProfessionals', httpOptions)
@@ -126,6 +151,15 @@ export class DataService {
         this.allProfessionals.next(professionals);
       });
     return this.allProfessionals;
+  }
+
+  getAllPatients(): BehaviorSubject<User[]> {
+    this.http
+      .get<User[]>('api/allPatients', httpOptions)
+      .subscribe(patients => {
+        this.allPatients.next(patients);
+      });
+    return this.allPatients;
   }
 
   requestAppointment(appt): BehaviorSubject<User> {
@@ -136,6 +170,66 @@ export class DataService {
       .post('api/requestAppointment', JSON.stringify(appt), httpOptions)
       .subscribe((returnedUser: User) => {
         this.loggedInUser.next(returnedUser);
+        console.log(returnedUser);
+      });
+    return this.loggedInUser;
+  }
+
+  cancelRequestedAppointment(appt): BehaviorSubject<User> {
+    this.http
+      .post<User>(
+        'api/cancelRequestedAppointment',
+        JSON.stringify(appt),
+        httpOptions
+      )
+      .subscribe(returnedUser => {
+        this.loggedInUser.next(returnedUser);
+        this.saveUserLocally(returnedUser);
+        if (returnedUser !== null) {
+          this.snackBar.open('Appointment canceled!', '', {
+            duration: 3000,
+            verticalPosition: 'top',
+            panelClass: 'snackBarStyle'
+          });
+        }
+      });
+    return this.loggedInUser;
+  }
+
+  cancelApprovedAppointment(appt): BehaviorSubject<User> {
+    this.http
+      .post<User>(
+        'api/cancelApprovedAppointment',
+        JSON.stringify(appt),
+        httpOptions
+      )
+      .subscribe(returnedUser => {
+        this.loggedInUser.next(returnedUser);
+        this.saveUserLocally(returnedUser);
+        if (returnedUser !== null) {
+          this.snackBar.open('Appointment canceled!', '', {
+            duration: 3000,
+            verticalPosition: 'top',
+            panelClass: 'snackBarStyle'
+          });
+        }
+      });
+    return this.loggedInUser;
+  }
+
+  approveAppointment(appt): BehaviorSubject<User> {
+    this.http
+      .post<User>('api/approveAppointment', JSON.stringify(appt), httpOptions)
+      .subscribe(returnedUser => {
+        this.loggedInUser.next(returnedUser);
+        this.saveUserLocally(returnedUser);
+        if (returnedUser !== null) {
+          this.snackBar.open('Approved appointment!', '', {
+            duration: 3000,
+            verticalPosition: 'top',
+            panelClass: 'snackBarStyle'
+          });
+        }
       });
     return this.loggedInUser;
   }

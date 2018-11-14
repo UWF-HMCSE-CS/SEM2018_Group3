@@ -1,11 +1,10 @@
 <div class="header-wrapper">
   <div class="logo">
-    <span class="mat-typography"
-      style="font-size: 20px;">Thera&nbsp;&nbsp;</span>
-    <fa-icon class="fa-2x"
-      icon="notes-medical"></fa-icon>&nbsp;
-    <span class="mat-typography"
-      style="font-size: 20px;">Station</span>
+    <span class="mat-typography" style="font-size: 20px;"
+      >Thera&nbsp;&nbsp;</span
+    >
+    <fa-icon class="fa-2x" icon="notes-medical"></fa-icon>&nbsp;
+    <span class="mat-typography" style="font-size: 20px;">Station</span>
   </div>
   <div class="tabs">
     <mat-tab-group>
@@ -15,28 +14,33 @@
       <mat-tab label="Profile">
         <app-profile-patient></app-profile-patient>
       </mat-tab>
-      <mat-tab label="About Us">
-        <app-about-us></app-about-us>
+      <mat-tab label="About Us"> <app-about-us></app-about-us> </mat-tab>
+      <mat-tab
+        label="Appointments"
+        *ngIf="
+          (user.requestedAppointments !== null &&
+            user.requestedAppointments !== undefined &&
+            user.requestedAppointments.length > 0) ||
+          (user.approvedAppointments !== null &&
+            user.approvedAppointments !== undefined &&
+            user.approvedAppointments.length > 0)
+        "
+      >
+        <app-appointments></app-appointments>
       </mat-tab>
     </mat-tab-group>
   </div>
   <div class="profile">
-    <span class="noButtonLook pointer"
-      [matMenuTriggerFor]="menu">
-      <fa-icon class="fa-2x"
-        icon="user"></fa-icon>&nbsp;
-      <span class="mat-typography"
-        style="font-size: 20px;">{{ user.lastName }}, {{ user.firstName }}&nbsp;</span>
+    <span class="noButtonLook pointer" [matMenuTriggerFor]="menu">
+      <fa-icon class="fa-2x" icon="user"></fa-icon>&nbsp;
+      <span class="mat-typography" style="font-size: 20px;"
+        >{{ user.lastName }}, {{ user.firstName }}&nbsp;</span
+      >
       <i class="fa fa-caret-down blueText"></i>
     </span>
-    <mat-menu #menu="matMenu"
-      [overlapTrigger]="false"
-      xPosition="after">
-      <button mat-menu-item
-        (click)="logout()"
-        [routerLink]="['/login']">
-        <i class="fa fa-user-o"></i>&nbsp;&nbsp;
-        <span>Logout</span>
+    <mat-menu #menu="matMenu" [overlapTrigger]="false" xPosition="after">
+      <button mat-menu-item (click)="logout()" [routerLink]="['/login']">
+        <i class="fa fa-user-o"></i>&nbsp;&nbsp; <span>Logout</span>
       </button>
     </mat-menu>
   </div>

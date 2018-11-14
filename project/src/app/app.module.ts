@@ -21,7 +21,6 @@ import {
 import { FormsModule } from '@angular/forms';
 import { PatientComponent } from './patient/patient.component';
 import { ProfessionalComponent } from './professional/professional.component';
-import { NewAccountComponent } from './new-account/new-account.component';
 import { HeaderComponent } from './header/header.component';
 import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 import { library } from '@fortawesome/fontawesome-svg-core';
@@ -40,12 +39,12 @@ import { HttpClientModule } from '@angular/common/http';
 import { MatDialogModule } from '@angular/material/dialog';
 import { LoginDialogComponent } from './login/login-dialog/login-dialog.component';
 import { NewAccountDialogComponent } from './login/new-account-dialog/new-account-dialog.component';
+import { AppointmentsComponent } from './appointments/appointments.component';
 
 library.add(faNotesMedical, faUser, faAngleLeft);
 
 const appRoutes: Routes = [
   { path: 'login', component: LoginComponent },
-  { path: 'newAccount', component: NewAccountComponent },
   { path: 'user', component: PatientComponent },
   { path: 'professional', component: ProfessionalComponent },
   { path: '', redirectTo: '/login', pathMatch: 'full' }
@@ -69,7 +68,6 @@ const appRoutes: Routes = [
     LoginComponent,
     PatientComponent,
     ProfessionalComponent,
-    NewAccountComponent,
     HeaderComponent,
     SearchProfessionalComponent,
     SearchPatientComponent,
@@ -77,7 +75,8 @@ const appRoutes: Routes = [
     ProfileProfessionalComponent,
     AboutUsComponent,
     LoginDialogComponent,
-    NewAccountDialogComponent
+    NewAccountDialogComponent,
+    AppointmentsComponent
   ],
   imports: [
     BrowserModule,

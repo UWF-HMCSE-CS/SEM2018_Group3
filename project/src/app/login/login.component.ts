@@ -17,9 +17,14 @@ export class LoginComponent implements OnInit {
   ngOnInit() {}
 
   openLoginDialog() {
-    this.dialog.open(LoginDialogComponent, {
+    const dialogRef = this.dialog.open(LoginDialogComponent, {
       width: '450px',
       height: '315px'
+    });
+
+    dialogRef.afterClosed().subscribe(result => {
+      console.log(result);
+      this.router.navigateByUrl('user');
     });
   }
 

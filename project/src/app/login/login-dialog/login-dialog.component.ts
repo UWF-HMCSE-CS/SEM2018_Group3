@@ -1,6 +1,6 @@
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { Router } from '@angular/router';
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, Output, EventEmitter } from '@angular/core';
 import { NgForm } from '@angular/forms';
 import { DataService } from '../../data.service';
 import { User } from '../../models/user.model';
@@ -13,6 +13,7 @@ import { MatDialog } from '@angular/material';
 })
 export class LoginDialogComponent implements OnInit {
   loggedInUser = new User();
+  @Output() closeMe = new EventEmitter<boolean>();
 
   constructor(
     private data: DataService,
@@ -41,11 +42,8 @@ export class LoginDialogComponent implements OnInit {
         } else {
           this.router.navigateByUrl('/professional');
         }
+        this.dialog.closeAll();
       }
     });
-  }
-
-  onCancel() {
-    this.dialog.closeAll();
   }
 }
