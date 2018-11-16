@@ -8,12 +8,12 @@ var validateEmail = function(email) {
 };
 
 var validateFirstName = function(firstName) {
-  var re = /^[a-z ,.'-]+$/i;
+  var re = /^[a-zA-Z ,.'-]+$/i;
   return re.test(firstName)
 };
 
 var validateLastName = function(lastName) {
-  var re = /^[a-z ,.'-]+$/i;
+  var re = /^[a-zA-Z ,.'-]+$/i;
   return re.test(lastName)
 };
 
@@ -45,7 +45,7 @@ var User = Schema({
     type: String,
     required: true,
     //Incorrect validation (Figure out how to validate address)
-    //validate: \d{1,5}\s\w.\s(\b\w*\b\s){1,2}\w*\.
+    //validate: /d{1,5}\s\w.\s(\b\w*\b\s){1,2}\w*/.
 
   },
   email: {

@@ -3,6 +3,7 @@ import { NgForm } from '@angular/forms';
 import { Router } from '@angular/router';
 import { DataService } from '../data.service';
 import { AccountType } from '../models/account-type.model';
+import { User } from '../models/user.model';
 
 @Component({
   selector: 'app-new-account',
