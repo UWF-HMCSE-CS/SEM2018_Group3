@@ -21,7 +21,6 @@ import {
 import { FormsModule } from '@angular/forms';
 import { PatientComponent } from './patient/patient.component';
 import { ProfessionalComponent } from './professional/professional.component';
-import { NewAccountComponent } from './new-account/new-account.component';
 import { HeaderComponent } from './header/header.component';
 import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 import { library } from '@fortawesome/fontawesome-svg-core';
@@ -31,18 +30,23 @@ import {
   faArrowLeft,
   faAngleLeft
 } from '@fortawesome/free-solid-svg-icons';
-import { SearchProfessionalComponent } from './professional/search-professional/search-professional.component';
 import { SearchPatientComponent } from './patient/search-patient/search-patient.component';
 import { ProfilePatientComponent } from './patient/profile-patient/profile-patient.component';
 import { ProfileProfessionalComponent } from './professional/profile-professional/profile-professional.component';
 import { AboutUsComponent } from './about-us/about-us.component';
 import { HttpClientModule } from '@angular/common/http';
+import { MatDialogModule } from '@angular/material/dialog';
+import { LoginDialogComponent } from './login/login-dialog/login-dialog.component';
+import { NewAccountDialogComponent } from './login/new-account-dialog/new-account-dialog.component';
+import { AppointmentsComponent } from './appointments/appointments.component';
+import {
+  ProfessionalCancellationDialogComponent
+} from './appointments/professional-cancellation-dialog/professional-cancellation-dialog.component';
 
 library.add(faNotesMedical, faUser, faAngleLeft);
 
 const appRoutes: Routes = [
   { path: 'login', component: LoginComponent },
-  { path: 'newAccount', component: NewAccountComponent },
   { path: 'user', component: PatientComponent },
   { path: 'professional', component: ProfessionalComponent },
   { path: '', redirectTo: '/login', pathMatch: 'full' }
@@ -66,13 +70,15 @@ const appRoutes: Routes = [
     LoginComponent,
     PatientComponent,
     ProfessionalComponent,
-    NewAccountComponent,
     HeaderComponent,
-    SearchProfessionalComponent,
     SearchPatientComponent,
     ProfilePatientComponent,
     ProfileProfessionalComponent,
-    AboutUsComponent
+    AboutUsComponent,
+    LoginDialogComponent,
+    NewAccountDialogComponent,
+    AppointmentsComponent,
+    ProfessionalCancellationDialogComponent
   ],
   imports: [
     BrowserModule,
@@ -93,9 +99,11 @@ const appRoutes: Routes = [
     MatTableModule,
     MatTooltipModule,
     MatDatepickerModule,
-    MatNativeDateModule
+    MatNativeDateModule,
+    MatDialogModule
   ],
+  entryComponents: [LoginDialogComponent, NewAccountDialogComponent, ProfessionalCancellationDialogComponent],
   providers: [MatNativeDateModule],
   bootstrap: [AppComponent]
 })
-export class AppModule {}
+export class AppModule { }

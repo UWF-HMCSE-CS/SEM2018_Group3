@@ -42,6 +42,9 @@ router.put('/newAccount', (req, res) => {
 });
 
 router.post('/login', (req, res) => {
+  //req.body.validate
+  //Make sure every character in the data is what you expect it to be.
+  //Email cant have
   models.Users.findOne({ email: req.body.email }, function(err, user) {
     if (err) throw err;
     if (user != null) {
@@ -95,6 +98,13 @@ router.get('/allProfessionals', (req, res) => {
   console.log('/allProfessionals');
 });
 
+router.get('/allPatients', (req, res) => {
+  models.Users.find({ type: 'Patient' }, function(err, users) {
+    res.send(users);
+  });
+  console.log('/allPatients');
+});
+
 router.post('/requestAppointment', (req, res) => {
   models.Users.findByIdAndUpdate(
     req.body.patient,
@@ -106,7 +116,7 @@ router.post('/requestAppointment', (req, res) => {
         }
       }
     },
-    { upsert: true },
+    { upsert: true, new: true },
     function(err, user) {
       if (err) throw err;
       res.json(user);
@@ -129,6 +139,141 @@ router.post('/requestAppointment', (req, res) => {
   );
   res.statusCode = 200;
   console.log('/requestAppointment');
+});
+
+router.post('/cancelRequestedAppointment', (req, res) => {
+  models.Users.findByIdAndUpdate(
+    req.body.patient,
+    {
+      $pull: {
+        requestedAppointments: {
+          dateTime: req.body.date,
+          id: req.body.professional
+        }
+      }
+    },
+    { new: true },
+    function(err, user) {
+      if (err) throw err;
+      if (req.body.accountType.includes('Patient')) {
+        res.json(user);
+      }
+    }
+  );
+  models.Users.findByIdAndUpdate(
+    req.body.professional,
+    {
+      $pull: {
+        requestedAppointments: {
+          dateTime: req.body.date,
+          id: req.body.patient
+        }
+      }
+    },
+    { new: true },
+    function(err, user) {
+      if (err) throw err;
+      if (!req.body.accountType.includes('Patient')) {
+        res.json(user);
+      }
+    }
+  );
+  res.statusCode = 200;
+  console.log('/cancelRequestedAppointment');
+});
+
+router.post('/cancelApprovedAppointment', (req, res) => {
+  models.Users.findByIdAndUpdate(
+    req.body.patient,
+    {
+      $pull: {
+        approvedAppointments: {
+          dateTime: req.body.date,
+          id: req.body.professional
+        }
+      }
+    },
+    { new: true },
+    function(err, user) {
+      if (err) throw err;
+      if (req.body.accountType.includes('Patient')) {
+        res.json(user);
+      }
+    }
+  );
+  models.Users.findByIdAndUpdate(
+    req.body.professional,
+    {
+      $pull: {
+        approvedAppointments: {
+          dateTime: req.body.date,
+          id: req.body.patient
+        }
+      }
+    },
+    { new: true },
+    function(err, user) {
+      if (err) throw err;
+      if (!req.body.accountType.includes('Patient')) {
+        res.json(user);
+      }
+    }
+  );
+  res.statusCode = 200;
+  console.log('/cancelApprovedAppointment');
+});
+
+router.post('/approveAppointment', (req, res) => {
+  models.Users.findByIdAndUpdate(
+    req.body.patient,
+    {
+      $pull: {
+        requestedAppointments: {
+          dateTime: req.body.date,
+          id: req.body.professional
+        }
+      },
+      $push: {
+        approvedAppointments: {
+          dateTime: req.body.date,
+          id: req.body.professional
+        }
+      }
+    },
+    { new: true },
+    function(err, user) {
+      if (err) throw err;
+      if (req.body.accountType.includes('Patient')) {
+        res.json(user);
+      }
+    }
+  );
+  models.Users.findByIdAndUpdate(
+    req.body.professional,
+    {
+      $pull: {
+        requestedAppointments: {
+          dateTime: req.body.date,
+          id: req.body.patient
+        }
+      },
+      $push: {
+        approvedAppointments: {
+          dateTime: req.body.date,
+          id: req.body.patient
+        }
+      }
+    },
+    { new: true },
+    function(err, user) {
+      if (err) throw err;
+      if (!req.body.accountType.includes('Patient')) {
+        res.json(user);
+      }
+    }
+  );
+  res.statusCode = 200;
+  console.log('/approveAppointment');
 });
 
 /* GET api listing. */

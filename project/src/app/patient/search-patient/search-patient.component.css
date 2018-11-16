@@ -1,12 +1,14 @@
 table {
   padding-left: 10px;
   padding-right: 10px;
+  padding-top: 10px;
   width: 100%;
 }
 
 .selected-professional-wrapper {
   display: grid;
   padding: 10px;
+  /* autoprefixer: off */
   grid-auto-columns: 1fr 1fr 1fr;
   grid-gap: 10px;
   grid-template-areas:
@@ -14,7 +16,7 @@ table {
     '. . .'
     'professional-info appointment-date appointment-time'
     '. request-appointment .'
-    '. submit .';
+    '. submit-button .';
 }
 
 .back {
@@ -40,6 +42,7 @@ table {
 
 .appointment-time {
   grid-area: appointment-time;
+  width: 250px;
 }
 
 .request-appointment {
@@ -49,13 +52,13 @@ table {
   display: grid;
 }
 
-.submit {
-  grid-area: submit;
+.submit-button {
+  grid-area: submit-button;
   border: solid;
   border-radius: 20%;
-  background-color: lightgray;
-  max-height: 50px;
-  max-width: 175px;
+  border-color: green;
+  color: green;
+  background-color: white;
   align-items: center;
   justify-content: center;
 }

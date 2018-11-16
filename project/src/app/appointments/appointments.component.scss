@@ -1,0 +1,32 @@
+table {
+  padding-left: 10px;
+  padding-right: 10px;
+  width: 100%;
+}
+
+.requested-appointments-text {
+  font-size: 20px;
+  position: relative;
+  bottom: 4px;
+  padding-top: 10px;
+}
+
+.cancel-button {
+  display: grid;
+  border: solid;
+  border-radius: 20%;
+  border-color: red;
+  color: red;
+  background-color: white;
+  height: 35px;
+}
+
+.approve-button {
+  display: grid;
+  border: solid;
+  border-radius: 20%;
+  border-color: green;
+  color: green;
+  background-color: white;
+  height: 35px;
+}

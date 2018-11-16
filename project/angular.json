@@ -8,7 +8,11 @@
       "sourceRoot": "src",
       "projectType": "application",
       "prefix": "app",
-      "schematics": {},
+      "schematics": {
+        "@schematics/angular:component": {
+          "styleext": "scss"
+        }
+      },
       "targets": {
         "build": {
           "builder": "@angular-devkit/build-angular:browser",
@@ -20,9 +24,12 @@
             "tsConfig": "src/tsconfig.app.json",
             "assets": ["src/favicon.ico", "src/assets"],
             "styles": [
-              "src/styles.css",
+              "src/styles.scss",
               "./node_modules/font-awesome/css/font-awesome.min.css"
             ],
+            "stylePreprocessorOptions": {
+              "includePaths": ["./src", "./src/styles"]
+            },
             "scripts": []
           },
           "configurations": {
@@ -70,9 +77,12 @@
             "tsConfig": "src/tsconfig.spec.json",
             "karmaConfig": "src/karma.conf.js",
             "styles": [
-              "src/styles.css",
+              "src/styles.scss",
               "./node_modules/font-awesome/css/font-awesome.min.css"
             ],
+            "stylePreprocessorOptions": {
+              "includePaths": ["./src", "./src/styles"]
+            },
             "scripts": [],
             "assets": ["src/favicon.ico", "src/assets"]
           }
@@ -112,5 +122,10 @@
       }
     }
   },
-  "defaultProject": "project"
+  "defaultProject": "project",
+  "schematics": {
+    "@schematics/angular:component": {
+      "styleext": "scss"
+    }
+  }
 }

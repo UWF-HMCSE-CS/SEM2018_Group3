@@ -8,7 +8,7 @@
       style="font-size: 20px;">Station</span>
   </div>
   <div class="tabs">
-    <mat-tab-group>
+    <mat-tab-group [dynamicHeight]="true">
       <mat-tab label="Search">
         <app-search-patient></app-search-patient>
       </mat-tab>
@@ -17,6 +17,15 @@
       </mat-tab>
       <mat-tab label="About Us">
         <app-about-us></app-about-us>
+      </mat-tab>
+      <mat-tab label="Appointments"
+        *ngIf="(user.requestedAppointments !== null &&
+            user.requestedAppointments !== undefined &&
+            user.requestedAppointments.length > 0) ||
+          (user.approvedAppointments !== null &&
+            user.approvedAppointments !== undefined &&
+            user.approvedAppointments.length > 0)">
+        <app-appointments></app-appointments>
       </mat-tab>
     </mat-tab-group>
   </div>
@@ -35,8 +44,7 @@
       <button mat-menu-item
         (click)="logout()"
         [routerLink]="['/login']">
-        <i class="fa fa-user-o"></i>&nbsp;&nbsp;
-        <span>Logout</span>
+        <i class="fa fa-user-o"></i>&nbsp;&nbsp; <span>Logout</span>
       </button>
     </mat-menu>
   </div>

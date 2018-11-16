@@ -1,0 +1,105 @@
+.new-account-form-component-wrapper {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  grid-gap: 10px;
+  /* autoprefixer: off */
+  grid-auto-rows: 45px;
+  grid-template-areas:
+    'first-name last-name'
+    'address    address'
+    'email      password'
+    'type       type'
+    'type-select type-select'
+    'submit-new-account-button     cancel-button';
+}
+
+.new-account-form-component-less {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  grid-gap: 10px;
+  /* autoprefixer: off */
+  grid-auto-rows: 45px;
+  grid-template-areas:
+    'first-name last-name'
+    'address    address'
+    'email      password'
+    'type       type'
+    'submit-new-account-button     cancel-button';
+}
+
+.first-name {
+  grid-area: first-name;
+  display: grid;
+  width: 90%;
+  padding-left: 20px;
+}
+
+.last-name {
+  grid-area: last-name;
+  display: grid;
+  width: 90%;
+}
+
+.address {
+  grid-area: address;
+  display: grid;
+  width: 90%;
+  padding-left: 20px;
+}
+
+.email {
+  grid-area: email;
+  display: grid;
+  width: 90%;
+  padding-left: 20px;
+}
+
+.password {
+  grid-area: password;
+  display: grid;
+  width: 90%;
+}
+
+.type {
+  grid-area: type;
+  width: 90%;
+  padding-top: 20px;
+  justify-self: center;
+  max-width: 400px;
+}
+
+.type-select {
+  grid-area: type-select;
+  display: grid;
+  justify-content: center;
+  margin-bottom: 10px;
+
+  width: 100%;
+}
+
+.submit-new-account-button {
+  grid-area: submit-new-account-button;
+  display: grid;
+  border: solid;
+  border-radius: 20%;
+  border-color: green;
+  background-color: white;
+  color: green;
+  justify-self: right;
+  margin-top: 5px;
+  max-height: 50px;
+  max-width: 90px;
+}
+
+.cancel-button {
+  grid-area: cancel-button;
+  display: grid;
+  border: solid;
+  border-radius: 20%;
+  border-color: red;
+  color: red;
+  background-color: white;
+  margin-top: 5px;
+  max-height: 50px;
+  max-width: 90px;
+}

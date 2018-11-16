@@ -13,7 +13,7 @@ export class ProfilePatientComponent implements OnInit {
   originalEmail: string;
   professionalTypes: string[] = new AccountType().getAllTypesArray();
 
-  constructor(private data: DataService) {}
+  constructor(private data: DataService) { }
 
   ngOnInit() {
     this.data.getLoggedInUser().subscribe(user => {
@@ -25,7 +25,6 @@ export class ProfilePatientComponent implements OnInit {
   }
 
   onSubmit() {
-    console.log(this.loggedInUser);
     this.data
       .updateUser(this.originalEmail, this.loggedInUser)
       .subscribe(updatedUser => {
