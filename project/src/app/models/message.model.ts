@@ -1,5 +1,6 @@
 export class Message {
   dateTime: Date;
   text: string;
-  id: string; // who the message is to
+  from: string; // ID of who the message is from
+  to: string; // ID of who the message is to
 }
