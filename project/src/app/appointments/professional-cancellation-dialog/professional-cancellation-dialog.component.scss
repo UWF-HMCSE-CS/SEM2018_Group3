@@ -1,17 +1,25 @@
 .form-components-wrapper {
   display: grid;
-  grid-template-columns: 200px 200px;
+  grid-template-columns: 220px 220px;
   grid-gap: 10px;
+    /* autoprefixer: off */
+  grid-auto-rows: 45px;
   grid-template-areas:
     'message-text    message-text'
-    'confirm-button   cancel-button';
+    'message-text    message-text'
+    'message-text    message-text'
+    'confirm-button  cancel-button';
 }
 
 .message-text {
   grid-area: message-text;
-  width: 90%;
+  width: 96%;
+  height: 100%;
   padding-left: 15px;
   padding-top: 5px;
+  display: grid;
+  border: solid;
+  border-radius: 5%;
 }
 
 .cancel-button {

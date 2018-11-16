@@ -4,13 +4,15 @@
     #f="ngForm"
     (ngSubmit)="onSubmit()">
     <mat-form-field class="message-text">
-      <input matInput
-        name="email"
+      <textarea matInput
+        name="message-text"
         placeholder="Please provide a reason for the cancellation"
         type="text"
         [(ngModel)]="message.text"
+        matTextareaAutosize
+        matAutosizeMinRows=4
         required
-        minlength="20">
+        minlength="20"></textarea>
     </mat-form-field>
     <button mat-button
       type="submit"

@@ -263,13 +263,18 @@ export class AppointmentsComponent implements OnInit {
     } else {
       const dialogRef = this.dialog.open(ProfessionalCancellationDialogComponent, {
         width: '500px',
-        height: '500px',
+        height: '310px',
         data: appointmentToUpdate,
       });
 
       dialogRef.afterClosed().subscribe(result => {
-        console.log(`Dialog result: ${result}`); // Pizza!
-        console.log(dialogRef.componentInstance.message);
+        if (dialogRef.componentInstance.message.text.length > 20) {
+          if (fromApprovedList) {
+            this.data.cancelApprovedAppointment(appointmentToUpdate);
+          } else {
+            this.data.cancelRequestedAppointment(appointmentToUpdate);
+          }
+        }
       });
       /*       if (fromApprovedList) {
               this.data.cancelApprovedAppointment(appointmentToUpdate);
