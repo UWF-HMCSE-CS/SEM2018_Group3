@@ -39,6 +39,9 @@ import { MatDialogModule } from '@angular/material/dialog';
 import { LoginDialogComponent } from './login/login-dialog/login-dialog.component';
 import { NewAccountDialogComponent } from './login/new-account-dialog/new-account-dialog.component';
 import { AppointmentsComponent } from './appointments/appointments.component';
+import {
+  ProfessionalCancellationDialogComponent
+} from './appointments/professional-cancellation-dialog/professional-cancellation-dialog.component';
 
 library.add(faNotesMedical, faUser, faAngleLeft);
 
@@ -74,7 +77,8 @@ const appRoutes: Routes = [
     AboutUsComponent,
     LoginDialogComponent,
     NewAccountDialogComponent,
-    AppointmentsComponent
+    AppointmentsComponent,
+    ProfessionalCancellationDialogComponent
   ],
   imports: [
     BrowserModule,
@@ -98,7 +102,7 @@ const appRoutes: Routes = [
     MatNativeDateModule,
     MatDialogModule
   ],
-  entryComponents: [LoginDialogComponent, NewAccountDialogComponent],
+  entryComponents: [LoginDialogComponent, NewAccountDialogComponent, ProfessionalCancellationDialogComponent],
   providers: [MatNativeDateModule],
   bootstrap: [AppComponent]
 })

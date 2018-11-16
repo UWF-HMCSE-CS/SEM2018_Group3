@@ -1,3 +1,6 @@
+import { Message } from './../models/message.model';
+import { MatDialog } from '@angular/material';
+import { ProfessionalCancellationDialogComponent } from './professional-cancellation-dialog/professional-cancellation-dialog.component';
 import { Appointment } from './../models/appointment.model';
 import { User } from './../models/user.model';
 import { Component, OnInit } from '@angular/core';
@@ -21,7 +24,7 @@ export class AppointmentsComponent implements OnInit {
   approvedDone = false;
   isPatient = true;
 
-  constructor(private data: DataService) { }
+  constructor(private data: DataService, private dialog: MatDialog) { }
 
   ngOnInit() {
     this.data.getLoggedInUser().subscribe(user => {
@@ -258,11 +261,26 @@ export class AppointmentsComponent implements OnInit {
     if (approval) {
       this.data.approveAppointment(appointmentToUpdate);
     } else {
-      if (fromApprovedList) {
-        this.data.cancelApprovedAppointment(appointmentToUpdate);
-      } else {
-        this.data.cancelRequestedAppointment(appointmentToUpdate);
-      }
+      const dialogRef = this.dialog.open(ProfessionalCancellationDialogComponent, {
+        width: '500px',
+        height: '310px',
+        data: appointmentToUpdate,
+      });
+
+      dialogRef.afterClosed().subscribe(result => {
+        if (dialogRef.componentInstance.message.text.length > 20) {
+          if (fromApprovedList) {
+            this.data.cancelApprovedAppointment(appointmentToUpdate);
+          } else {
+            this.data.cancelRequestedAppointment(appointmentToUpdate);
+          }
+        }
+      });
+      /*       if (fromApprovedList) {
+              this.data.cancelApprovedAppointment(appointmentToUpdate);
+            } else {
+              this.data.cancelRequestedAppointment(appointmentToUpdate);
+            } */
     }
   }
 }
