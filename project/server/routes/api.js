@@ -42,6 +42,9 @@ router.put('/newAccount', (req, res) => {
 });
 
 router.post('/login', (req, res) => {
+  //req.body.validate
+  //Make sure every character in the data is what you expect it to be.
+  //Email cant have
   models.Users.findOne({ email: req.body.email }, function(err, user) {
     if (err) throw err;
     if (user != null) {
