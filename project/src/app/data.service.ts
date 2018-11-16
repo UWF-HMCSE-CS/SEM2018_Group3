@@ -30,7 +30,7 @@ export class DataService {
     private snackBar: MatSnackBar,
     private router: Router,
     private dialog: MatDialog
-  ) {}
+  ) { }
 
   getLoggedInUser() {
     const user: User = JSON.parse(localStorage.getItem('user'));
@@ -88,7 +88,6 @@ export class DataService {
       .post<User>('api/login', JSON.stringify({ email, password }), httpOptions)
       .subscribe(
         data => {
-          console.log(data);
           this.loggedInUser.next(data);
           if (data === null) {
             const user = new User();
@@ -166,7 +165,6 @@ export class DataService {
     // This method stringifies the date, changing the time to ZULU time
     // The offset between ZULU and Central is +5 hours
     // Converting the date back to a Date type changes the time back correctly
-    console.log(JSON.stringify(appt));
     this.http
       .post<User>('api/requestAppointment', JSON.stringify(appt), httpOptions)
       .subscribe((returnedUser: User) => {

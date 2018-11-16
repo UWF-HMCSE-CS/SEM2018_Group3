@@ -24,15 +24,12 @@ export class NewAccountDialogComponent implements OnInit {
     private router: Router,
     private data: DataService,
     private dialog: MatDialog
-  ) {}
+  ) { }
 
   ngOnInit() {
-    console.log(this.patientOrProfessional);
-    console.log(this.form.value);
   }
 
   onSubmit() {
-    console.log(this.form.value);
     const newUser = new User();
     newUser.firstName = this.form.value.firstName;
     newUser.lastName = this.form.value.lastName;

@@ -1,22 +1,5 @@
-/* .about-us-wrapper {
-  display: grid;
-  grid-template-columns: 200px 1fr 200px;
-  grid-gap: 10px;
-  grid-auto-rows: 300px;
-  grid-template-areas:
-    'about-us-text . about-us-1-image'
-    'about-us-text about-us-text about-us-text'
-    'about-us-2-image . about-us-text';
-}
-
 .about-us-text {
-  grid-area: about-us-text;
-  font-family: 'Roboto';
   font-size: 18px;
+  margin-left: 10px;
+  margin-right: 10px;
 }
-
-.about-us-1-image {
-  grid-area: about-us-1-image;
-  height: 200px;
-  width: 150px;
-} */

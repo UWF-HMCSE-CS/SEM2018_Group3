@@ -12,9 +12,9 @@ import { MatDialog } from '@angular/material';
 })
 export class LoginComponent implements OnInit {
   loggedInUser = new User();
-  constructor(private router: Router, public dialog: MatDialog) {}
+  constructor(private router: Router, public dialog: MatDialog) { }
 
-  ngOnInit() {}
+  ngOnInit() { }
 
   openLoginDialog() {
     const dialogRef = this.dialog.open(LoginDialogComponent, {
@@ -23,7 +23,6 @@ export class LoginComponent implements OnInit {
     });
 
     dialogRef.afterClosed().subscribe(result => {
-      console.log(result);
       this.router.navigateByUrl('user');
     });
   }

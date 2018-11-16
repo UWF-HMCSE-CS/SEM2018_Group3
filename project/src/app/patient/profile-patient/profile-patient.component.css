@@ -2,7 +2,7 @@
   display: grid;
   grid-template-columns: 200px 200px 1fr;
   grid-gap: 10px;
-  padding-top: 10px;
+  padding-top: 20px;
   /* autoprefixer: off */
   grid-auto-rows: 45px;
   grid-template-areas:
@@ -55,6 +55,7 @@
   display: grid;
   padding-left: 15px;
   padding-right: 15px;
+  padding-top: 5px;
   border: solid;
   border-radius: 5%;
 }

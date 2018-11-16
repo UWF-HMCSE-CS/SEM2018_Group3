@@ -61,9 +61,9 @@ export class SearchPatientComponent implements OnInit {
     const day = d.getDay();
     // Prevent Saturday and Sunday from being selected.
     return day !== 0 && day !== 6;
-  };
+  }
 
-  constructor(private data: DataService) {}
+  constructor(private data: DataService) { }
 
   ngOnInit() {
     this.data.getLoggedInUser().subscribe(user => {
@@ -117,7 +117,6 @@ export class SearchPatientComponent implements OnInit {
       professional: this.chosenProf._id,
       appointment: this.chosenDateAndTime
     };
-    console.log(appt);
     this.data.updateUserLocally(this.loggedInUser);
     this.data.requestAppointment(appt).subscribe(user => {
       if (user !== null) {

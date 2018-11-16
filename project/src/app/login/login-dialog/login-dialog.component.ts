@@ -20,24 +20,23 @@ export class LoginDialogComponent implements OnInit {
     private router: Router,
     private snackBar: MatSnackBar,
     private dialog: MatDialog
-  ) {}
+  ) { }
 
-  ngOnInit() {}
+  ngOnInit() { }
 
   onSubmit(form: NgForm) {
     this.data.login(form.value.email, form.value.password).subscribe(user => {
-      this.loggedInUser = user;
-      if (this.loggedInUser === null) {
-        this.loggedInUser = new User();
-        this.loggedInUser.email = form.value.email;
+      if (user === null) {
+        user = new User();
+        user.email = form.value.email;
         this.snackBar.open('Password incorrect or account not found.', '', {
           duration: 3000,
           verticalPosition: 'top',
           panelClass: 'snackBarStyle'
         });
-      } else if (this.loggedInUser.type !== undefined) {
-        this.loggedInUser = user;
-        if (this.loggedInUser.type.includes('Patient')) {
+      } else if (user.type !== undefined) {
+        user = user;
+        if (user.type.includes('Patient')) {
           this.router.navigateByUrl('/user');
         } else {
           this.router.navigateByUrl('/professional');

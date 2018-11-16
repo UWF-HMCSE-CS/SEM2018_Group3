@@ -30,7 +30,6 @@ import {
   faArrowLeft,
   faAngleLeft
 } from '@fortawesome/free-solid-svg-icons';
-import { SearchProfessionalComponent } from './professional/search-professional/search-professional.component';
 import { SearchPatientComponent } from './patient/search-patient/search-patient.component';
 import { ProfilePatientComponent } from './patient/profile-patient/profile-patient.component';
 import { ProfileProfessionalComponent } from './professional/profile-professional/profile-professional.component';
@@ -69,7 +68,6 @@ const appRoutes: Routes = [
     PatientComponent,
     ProfessionalComponent,
     HeaderComponent,
-    SearchProfessionalComponent,
     SearchPatientComponent,
     ProfilePatientComponent,
     ProfileProfessionalComponent,
@@ -104,4 +102,4 @@ const appRoutes: Routes = [
   providers: [MatNativeDateModule],
   bootstrap: [AppComponent]
 })
-export class AppModule {}
+export class AppModule { }

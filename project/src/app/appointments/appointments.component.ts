@@ -21,7 +21,7 @@ export class AppointmentsComponent implements OnInit {
   approvedDone = false;
   isPatient = true;
 
-  constructor(private data: DataService) {}
+  constructor(private data: DataService) { }
 
   ngOnInit() {
     this.data.getLoggedInUser().subscribe(user => {
@@ -32,7 +32,6 @@ export class AppointmentsComponent implements OnInit {
         } else {
           this.isPatient = false;
         }
-        console.log(user);
         (this.requestedDone = false), (this.approvedDone = false);
         if (this.loggedInUser.type.includes(this.accountTypes.PATIENT)) {
           if (this.allProfessionals.length > 0) {
@@ -113,7 +112,6 @@ export class AppointmentsComponent implements OnInit {
       this.allPatients.length > 0 &&
       !this.requestedDone
     ) {
-      console.log('inside set requested else if');
       this.loggedInUser.requestedAppointments.forEach(appt => {
         appt.dateTime = new Date(appt.dateTime);
         let hours = appt.dateTime.getHours();
@@ -127,7 +125,6 @@ export class AppointmentsComponent implements OnInit {
 
         this.allPatients.forEach(patient => {
           if (appt.id === patient._id) {
-            console.log('matched id');
             const requestedAppointment: {
               _id: string;
               name: { firstName: string; lastName: string };
@@ -144,15 +141,12 @@ export class AppointmentsComponent implements OnInit {
               about: { text: 'Scroll over for bio!', bio: patient.bio },
               modify: appt
             };
-            console.log(requestedAppointment);
             requestedAppointments.push(requestedAppointment);
           }
         });
       });
       this.requestedDone = true;
       this.dataSourceTop = requestedAppointments;
-      console.log(this.dataSourceTop);
-      console.log(requestedAppointments);
     }
   }
 
@@ -234,8 +228,6 @@ export class AppointmentsComponent implements OnInit {
         });
       });
       this.approvedDone = true;
-      console.log('approved');
-      console.log(approvedAppointments);
       this.dataSourceBottom = approvedAppointments;
     }
   }
