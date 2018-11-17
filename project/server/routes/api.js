@@ -289,19 +289,31 @@ router.post('/cancelAppointmentMessage', (req, res) => {
         }
       }
     },
+    function(err, user) {
+      if(err) throw err;
+      else{
+        console.log(user.messages);
+      }
+    }
   );
   models.Users.findByIdAndUpdate(
     req.body.to,
     {
       $push: {
-        requestedAppointments: {
-          dateTime: req.body.appointment,
+        messages: {
+          dateTime: req.body.dateTime,
           text: req.body.text,
           from: req.body.from,
           to: req.body.to
         }
       }
     },
+    function(err, user) {
+      if(err) throw err;
+      else{
+        console.log(user.messages);
+      }
+    }
   );
   res.statusCode = 200;
   console.log('/cancelAppointmentMessage');
