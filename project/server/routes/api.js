@@ -276,6 +276,46 @@ router.post('/approveAppointment', (req, res) => {
   console.log('/approveAppointment');
 });
 
+router.post('/appointmentMessage', (req, res) => {
+  models.Users.findByIdAndUpdate(
+    req.body.from,
+    {
+      $push: {
+        messages: {
+          dateTime: req.body.dateTime,
+          text: req.body.text,
+          from: req.body.from,
+          to: req.body.to
+        }
+      }
+    },
+    { upsert: true, new: true },
+    function(err, user) {
+      if (err) throw err;
+      res.json(user);
+    }
+  );
+  models.Users.findByIdAndUpdate(
+    req.body.to,
+    {
+      $push: {
+        requestedAppointments: {
+          dateTime: req.body.appointment,
+          text: req.body.text,
+          from: req.body.from,
+          to: req.body.to
+        }
+      }
+    },
+    { upsert: true },
+    function(err, user) {
+      if (err) throw err;
+    }
+  );
+  res.statusCode = 200;
+  console.log('/appointmentMessage');
+});
+
 /* GET api listing. */
 router.get('/', (req, res) => {
   res.send('api works');
