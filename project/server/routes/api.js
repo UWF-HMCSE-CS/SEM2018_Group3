@@ -276,7 +276,7 @@ router.post('/approveAppointment', (req, res) => {
   console.log('/approveAppointment');
 });
 
-router.post('/appointmentMessage', (req, res) => {
+router.post('/cancelAppointmentMessage', (req, res) => {
   models.Users.findByIdAndUpdate(
     req.body.from,
     {
@@ -289,11 +289,6 @@ router.post('/appointmentMessage', (req, res) => {
         }
       }
     },
-    { upsert: true, new: true },
-    function(err, user) {
-      if (err) throw err;
-      res.json(user);
-    }
   );
   models.Users.findByIdAndUpdate(
     req.body.to,
@@ -307,13 +302,9 @@ router.post('/appointmentMessage', (req, res) => {
         }
       }
     },
-    { upsert: true },
-    function(err, user) {
-      if (err) throw err;
-    }
   );
   res.statusCode = 200;
-  console.log('/appointmentMessage');
+  console.log('/cancelAppointmentMessage');
 });
 
 /* GET api listing. */
