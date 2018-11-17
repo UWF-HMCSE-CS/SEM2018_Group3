@@ -276,7 +276,7 @@ router.post('/approveAppointment', (req, res) => {
   console.log('/approveAppointment');
 });
 
-router.post('/cancelAppointmentMessage', (req, res) => {
+router.put('/cancelAppointmentMessage', (req, res) => {
   models.Users.findByIdAndUpdate(
     req.body.from,
     {
