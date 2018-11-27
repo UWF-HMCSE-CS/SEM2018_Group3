@@ -268,12 +268,13 @@ export class AppointmentsComponent implements OnInit {
       });
 
       dialogRef.afterClosed().subscribe(result => {
-        if (dialogRef.componentInstance.message.text.length > 20) {
+        if (dialogRef.componentInstance.message.text.length >= 20) {
           if (fromApprovedList) {
             this.data.cancelApprovedAppointment(appointmentToUpdate);
           } else {
             this.data.cancelRequestedAppointment(appointmentToUpdate);
           }
+          console.log(dialogRef.componentInstance.message);
           this.data.sendCancellationMessage(dialogRef.componentInstance.message);
         }
       });

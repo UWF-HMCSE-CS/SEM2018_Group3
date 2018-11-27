@@ -154,7 +154,7 @@ router.post('/cancelRequestedAppointment', (req, res) => {
       $pull: {
         requestedAppointments: {
           dateTime: req.body.date,
-          id: req.body.professional
+          id: req.body.professional 
         }
       }
     },
@@ -280,6 +280,49 @@ router.post('/approveAppointment', (req, res) => {
   );
   res.statusCode = 200;
   console.log('/approveAppointment');
+});
+
+router.put('/cancelAppointmentMessage', (req, res) => {
+  models.Users.findByIdAndUpdate(
+    req.body.from,
+    {
+      $push: {
+        messages: {
+          dateTime: req.body.dateTime,
+          text: req.body.text,
+          from: req.body.from,
+          to: req.body.to
+        }
+      }
+    },
+    function(err, user) {
+      if(err) throw err;
+      else{
+        console.log(user.messages);
+      }
+    }
+  );
+  models.Users.findByIdAndUpdate(
+    req.body.to,
+    {
+      $push: {
+        messages: {
+          dateTime: req.body.dateTime,
+          text: req.body.text,
+          from: req.body.from,
+          to: req.body.to
+        }
+      }
+    },
+    function(err, user) {
+      if(err) throw err;
+      else{
+        console.log(user.messages);
+      }
+    }
+  );
+  res.statusCode = 200;
+  console.log('/cancelAppointmentMessage');
 });
 
 /* GET api listing. */

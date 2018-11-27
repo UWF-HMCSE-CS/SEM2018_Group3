@@ -1,7 +1,7 @@
 import { AccountType } from './../../models/account-type.model';
 import { Message } from './../../models/message.model';
 import { Component, OnInit, Inject } from '@angular/core';
-import { MAT_DIALOG_DATA } from '@angular/material';
+import { MAT_DIALOG_DATA, MatDialog } from '@angular/material';
 
 @Component({
   selector: 'app-professional-cancellation-dialog',
@@ -17,7 +17,7 @@ export class ProfessionalCancellationDialogComponent implements OnInit {
     professional: string;
     date: Date;
     accountType: string;
-  }) { }
+  }, private dialog: MatDialog) { }
 
   ngOnInit() {
     if (this.data.accountType.includes(this.accountTypes.PATIENT)) {
@@ -31,6 +31,7 @@ export class ProfessionalCancellationDialogComponent implements OnInit {
 
   onSubmit() {
     this.message.dateTime = new Date();
+    this.dialog.closeAll();
   }
 
 }
