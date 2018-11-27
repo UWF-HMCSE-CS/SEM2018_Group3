@@ -291,7 +291,8 @@ router.put('/sendMessage', (req, res) => {
           dateTime: req.body.dateTime,
           text: req.body.text,
           from: req.body.from,
-          to: req.body.to
+          to: req.body.to,
+          read: req.body.read
         }
       }
     },
@@ -310,7 +311,8 @@ router.put('/sendMessage', (req, res) => {
           dateTime: req.body.dateTime,
           text: req.body.text,
           from: req.body.from,
-          to: req.body.to
+          to: req.body.to,
+          read: req.body.read
         }
       }
     },

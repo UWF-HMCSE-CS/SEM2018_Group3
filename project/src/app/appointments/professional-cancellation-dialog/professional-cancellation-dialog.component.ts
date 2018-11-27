@@ -31,6 +31,7 @@ export class ProfessionalCancellationDialogComponent implements OnInit {
 
   onSubmit() {
     this.message.dateTime = new Date();
+    this.message.read = false;
     this.dialog.closeAll();
   }
 

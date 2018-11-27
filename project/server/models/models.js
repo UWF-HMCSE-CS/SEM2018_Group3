@@ -75,7 +75,13 @@ var User = Schema({
   approvedAppointments: [{ dateTime: Date, id: String }],
 
   // Messages between patient and professional
-  messages: [{ dateTime: Date, text: String, from: String, to: String }],
+  messages: [{ 
+    dateTime: Date, 
+    text: String, 
+    from: String, 
+    to: String,
+    read: Boolean
+  }],
 
 
   // Patient feedback: review on professionals, Professional feedback: personal note about patient
