@@ -274,13 +274,9 @@ export class AppointmentsComponent implements OnInit {
           } else {
             this.data.cancelRequestedAppointment(appointmentToUpdate);
           }
+          this.data.sendCancellationMessage(dialogRef.componentInstance.message);
         }
       });
-      /*       if (fromApprovedList) {
-              this.data.cancelApprovedAppointment(appointmentToUpdate);
-            } else {
-              this.data.cancelRequestedAppointment(appointmentToUpdate);
-            } */
     }
   }
 }

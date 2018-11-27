@@ -10,6 +10,7 @@ import { MatSnackBar } from '@angular/material/snack-bar';
 import { AccountType } from './models/account-type.model';
 import { Router } from '@angular/router';
 import { MatDialog } from '@angular/material';
+import { Message } from './models/message.model';
 const httpOptions = {
   headers: new HttpHeaders({
     'Content-Type': 'application/json'
@@ -110,6 +111,7 @@ export class DataService {
   }
 
   updateUser(originalEmail: string, user: User): BehaviorSubject<User> {
+    this.saveUserLocally(user);
     this.http
       .put<User>(
         'api/updateUser',
@@ -120,6 +122,7 @@ export class DataService {
         data => {
           this.loggedInUser.next(data);
           this.saveUserLocally(data);
+          console.log(data);
           this.snackBar.open('Account Updated Successfully.', '', {
             duration: 3000,
             verticalPosition: 'top',
@@ -239,4 +242,27 @@ export class DataService {
       });
     return this.loggedInUser;
   }
+
+  sendCancellationMessage(message: Message) {
+    const loggedInUser: User = this.loggedInUser.getValue();
+    loggedInUser.messages.push(message);
+    this.saveUserLocally(loggedInUser);
+    this.loggedInUser.next(loggedInUser);
+    this.http.put<string>('api/cancelAppointmentMessage', JSON.stringify(message), httpOptions).subscribe(text => {
+      this.snackBar.open(text, '', {
+        duration: 3000,
+        verticalPosition: 'top',
+        panelClass: 'snackBarStyle'
+      });
+    },
+      (err: HttpErrorResponse) => {
+        console.log(err);
+        this.snackBar.open('An Error Has Occurred. Please try again.', '', {
+          duration: 3000,
+          verticalPosition: 'top',
+          panelClass: 'snackBarStyleError'
+        });
+      });
+  }
 }
+
