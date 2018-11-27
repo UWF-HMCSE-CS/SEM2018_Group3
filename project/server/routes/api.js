@@ -282,7 +282,7 @@ router.post('/approveAppointment', (req, res) => {
   console.log('/approveAppointment');
 });
 
-router.put('/cancelAppointmentMessage', (req, res) => {
+router.put('/sendMessage', (req, res) => {
   models.Users.findByIdAndUpdate(
     req.body.from,
     {
@@ -322,7 +322,7 @@ router.put('/cancelAppointmentMessage', (req, res) => {
     }
   );
   res.statusCode = 200;
-  console.log('/cancelAppointmentMessage');
+  console.log('/sendMessage');
 });
 
 /* GET api listing. */

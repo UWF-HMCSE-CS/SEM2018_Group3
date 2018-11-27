@@ -248,7 +248,7 @@ export class DataService {
     loggedInUser.messages.push(message);
     this.saveUserLocally(loggedInUser);
     this.loggedInUser.next(loggedInUser);
-    this.http.put<string>('api/cancelAppointmentMessage', JSON.stringify(message), httpOptions).subscribe(text => {
+    this.http.put<string>('api/sendMessage', JSON.stringify(message), httpOptions).subscribe(text => {
       this.snackBar.open(text, '', {
         duration: 3000,
         verticalPosition: 'top',
