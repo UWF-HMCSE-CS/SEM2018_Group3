@@ -264,5 +264,16 @@ export class DataService {
         });
       });
   }
+
+  getNameByID(id: string) {
+    this.http
+      .put<{
+        lastName: string,
+        firstName: string}>
+      ('api/getNameByID', JSON.stringify(id), httpOptions)
+      .subscribe(text => {
+        
+    });
+  }
 }
 

@@ -327,6 +327,23 @@ router.put('/sendMessage', (req, res) => {
   console.log('/sendMessage');
 });
 
+router.put('/getNameByID', (req, res) => {
+  models.Users.findById(
+    req.body.id,
+    function(err, user) {
+      if(err) throw err;
+      if(user){
+        res.statusCode = 200;
+        res.json({
+          lastName: user.lastName,
+          firstName: user.firstName
+        });
+      }
+    }
+  );
+  console.log('/getNameByID');
+});
+
 /* GET api listing. */
 router.get('/', (req, res) => {
   res.send('api works');
