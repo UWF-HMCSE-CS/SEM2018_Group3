@@ -2,6 +2,8 @@ import { DataService } from './../../data.service';
 import { User } from './../../models/user.model';
 import { Component, OnInit } from '@angular/core';
 import { AccountType } from '../../models/account-type.model';
+import { MatDialog } from '@angular/material';
+import { MessagesDialogComponent } from '../../messages-dialog/messages-dialog.component';
 
 @Component({
   selector: 'app-profile-patient',
@@ -13,7 +15,7 @@ export class ProfilePatientComponent implements OnInit {
   originalEmail: string;
   professionalTypes: string[] = new AccountType().getAllTypesArray();
 
-  constructor(private data: DataService) { }
+  constructor(private data: DataService, private dialog: MatDialog) { }
 
   ngOnInit() {
     this.data.getLoggedInUser().subscribe(user => {
@@ -30,5 +32,17 @@ export class ProfilePatientComponent implements OnInit {
       .subscribe(updatedUser => {
         this.loggedInUser = updatedUser;
       });
+  }
+
+  showMessagesDialog() {
+    console.log('show messages');
+    const dialogRef = this.dialog.open(MessagesDialogComponent, {
+      width: '500px',
+      height: '310px',
+    });
+
+    dialogRef.afterClosed().subscribe(result => {
+      console.log(result);
+    });
   }
 }

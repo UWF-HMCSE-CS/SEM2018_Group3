@@ -1,18 +1,19 @@
 .profile-form-component-wrapper {
   display: grid;
-  grid-template-columns: 200px 200px 1fr;
+  grid-template-columns: 1fr 200px 1fr;
   grid-gap: 10px;
   padding-top: 20px;
   /* autoprefixer: off */
   grid-auto-rows: 45px;
   grid-template-areas:
-    'first-name  first-name  bio'
-    'last-name   last-name   bio'
-    'address     address     bio'
-    'profile-email       profile-email       bio'
-    'type-select type-select bio'
-    '.           .           .'
-    'submit-button      submit-button      submit-button';
+    'first-name    first-name    bio'
+    'last-name     last-name     bio'
+    'address       address       bio'
+    'profile-email profile-email bio'
+    'type-select   type-select   bio'
+    '.             .             .'
+    'submit-button submit-button submit-button'
+    '.             .             messages-button';
 }
 
 .first-name {
@@ -72,4 +73,14 @@
   max-width: 175px;
   margin-left: 40%;
   margin-bottom: 10px;
+}
+
+.messages-button {
+  grid-area: messages-button;
+  display: grid;
+  border: solid;
+  border-radius: 20%;
+  color: blue;
+  border-color: blue;
+  background-color: white;
 }
