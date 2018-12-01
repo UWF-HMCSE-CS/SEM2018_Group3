@@ -42,6 +42,7 @@ import { AppointmentsComponent } from './appointments/appointments.component';
 import {
   ProfessionalCancellationDialogComponent
 } from './appointments/professional-cancellation-dialog/professional-cancellation-dialog.component';
+import { MessagesDialogComponent } from './messages-dialog/messages-dialog.component';
 
 library.add(faNotesMedical, faUser, faAngleLeft);
 
@@ -78,7 +79,8 @@ const appRoutes: Routes = [
     LoginDialogComponent,
     NewAccountDialogComponent,
     AppointmentsComponent,
-    ProfessionalCancellationDialogComponent
+    ProfessionalCancellationDialogComponent,
+    MessagesDialogComponent
   ],
   imports: [
     BrowserModule,
@@ -102,7 +104,7 @@ const appRoutes: Routes = [
     MatNativeDateModule,
     MatDialogModule
   ],
-  entryComponents: [LoginDialogComponent, NewAccountDialogComponent, ProfessionalCancellationDialogComponent],
+  entryComponents: [LoginDialogComponent, NewAccountDialogComponent, ProfessionalCancellationDialogComponent, MessagesDialogComponent],
   providers: [MatNativeDateModule],
   bootstrap: [AppComponent]
 })
