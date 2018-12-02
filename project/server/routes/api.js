@@ -154,7 +154,7 @@ router.post('/cancelRequestedAppointment', (req, res) => {
       $pull: {
         requestedAppointments: {
           dateTime: req.body.date,
-          id: req.body.professional 
+          id: req.body.professional
         }
       }
     },
@@ -288,38 +288,45 @@ router.put('/sendMessage', (req, res) => {
     {
       $push: {
         messages: {
+          conversationWithId: req.body.conversationWithId,
+          conversationWithFirstName: req.body.conversationWithFirstName,
+          conversationWithLastName: req.body.conversationWithLastName,
           dateTime: req.body.dateTime,
           text: req.body.text,
           from: req.body.from,
           to: req.body.to,
           read: req.body.read
+
         }
       }
     },
-    function(err, user) {
-      if(err) throw err;
-      else{
+    function (err, user) {
+      if (err) throw err;
+      else {
         console.log(user.messages);
-      }
-    }
-  );
-  models.Users.findByIdAndUpdate(
-    req.body.to,
-    {
-      $push: {
-        messages: {
-          dateTime: req.body.dateTime,
-          text: req.body.text,
-          from: req.body.from,
-          to: req.body.to,
-          read: req.body.read
-        }
-      }
-    },
-    function(err, user) {
-      if(err) throw err;
-      else{
-        console.log(user.messages);
+        models.Users.findByIdAndUpdate(
+          req.body.to,
+          {
+            $push: {
+              messages: {
+                conversationWithId: user._id,
+                conversationWithFirstName: user.firstName,
+                conversationWithLastName: user.lastName,
+                dateTime: req.body.dateTime,
+                text: req.body.text,
+                from: req.body.from,
+                to: req.body.to,
+                read: req.body.read
+              }
+            }
+          },
+          function (err, user) {
+            if (err) throw err;
+            else {
+              console.log(user.messages);
+            }
+          }
+        );
       }
     }
   );
@@ -330,9 +337,9 @@ router.put('/sendMessage', (req, res) => {
 router.put('/getNameByID', (req, res) => {
   models.Users.findById(
     req.body.id,
-    function(err, user) {
-      if(err) throw err;
-      if(user){
+    function (err, user) {
+      if (err) throw err;
+      if (user) {
         res.statusCode = 200;
         res.json({
           lastName: user.lastName,

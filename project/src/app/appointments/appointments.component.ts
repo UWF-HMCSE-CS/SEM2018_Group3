@@ -1,4 +1,3 @@
-import { Message } from './../models/message.model';
 import { MatDialog } from '@angular/material';
 import { ProfessionalCancellationDialogComponent } from './professional-cancellation-dialog/professional-cancellation-dialog.component';
 import { Appointment } from './../models/appointment.model';
@@ -274,8 +273,7 @@ export class AppointmentsComponent implements OnInit {
           } else {
             this.data.cancelRequestedAppointment(appointmentToUpdate);
           }
-          console.log(dialogRef.componentInstance.message);
-          this.data.sendCancellationMessage(dialogRef.componentInstance.message);
+          this.data.sendMessage(dialogRef.componentInstance.message);
         }
       });
     }

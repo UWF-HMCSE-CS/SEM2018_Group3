@@ -75,10 +75,13 @@ var User = Schema({
   approvedAppointments: [{ dateTime: Date, id: String }],
 
   // Messages between patient and professional
-  messages: [{ 
-    dateTime: Date, 
-    text: String, 
-    from: String, 
+  messages: [{
+    conversationWithId: String,
+    conversationWithFirstName: String,
+    conversationWithLastName: String,
+    dateTime: Date,
+    text: String,
+    from: String,
     to: String,
     read: Boolean
   }],

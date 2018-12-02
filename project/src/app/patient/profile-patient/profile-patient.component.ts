@@ -37,8 +37,9 @@ export class ProfilePatientComponent implements OnInit {
   showMessagesDialog() {
     console.log('show messages');
     const dialogRef = this.dialog.open(MessagesDialogComponent, {
-      width: '500px',
-      height: '310px',
+      width: '525px',
+      height: '440px',
+      data: this.loggedInUser
     });
 
     dialogRef.afterClosed().subscribe(result => {

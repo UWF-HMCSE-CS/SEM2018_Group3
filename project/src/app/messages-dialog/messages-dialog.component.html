@@ -1,7 +1,52 @@
-<h2 mat-dialog-title>Messages</h2>
-<mat-dialog-content>
+<div *ngIf="!conversationSelected">
+  <h2 mat-dialog-title>Conversations</h2>
+  <mat-dialog-content>
+    <div *ngFor="let conversation of allConversations; let i = index">
+      <button mat-button
+        class="conversation-button"
+        (click)="showConversation(conversation.conversation)">
+        {{ conversation.conversation[i].conversationWithLastName }},
+        {{ conversation.conversation[i].conversationWithFirstName }}:
+        {{ parseDate(conversation.conversation[conversation.conversation.length - 1].dateTime) }}</button>
+    </div>
+  </mat-dialog-content>
+</div>
 
-  <p>
-    messages-dialog works!
-  </p>
-</mat-dialog-content>
+<div *ngIf="conversationSelected">
+  <h2 mat-dialog-title>Messages</h2>
+  <mat-dialog-content>
+    <div class="messages">
+      <div *ngFor="let message of conversation"
+        #messagesDiv>
+        <div *ngIf="loggedInUser._id.includes(message.from)"
+          style="text-align: right">
+          <p class="mat-typography">{{ parseDate(message.dateTime) }}</p>
+          <p class="mat-typography">You: {{ message.text }}</p>
+        </div>
+        <div *ngIf="!loggedInUser._id.includes(message.from)">
+          <p class="mat-typography">{{ parseDate(message.dateTime) }}</p>
+          <p class="mat-typography">{{ message.conversationWithFirstName }}: {{ message.text }}</p>
+        </div>
+      </div>
+    </div>
+
+  </mat-dialog-content>
+  <form class="messages-wrapper">
+    <input mat-input
+      name="newMessage"
+      [placeholder]="'Send New Message'"
+      class="new-message"
+      autocomplete="off"
+      (keyup.enter)="sendNewMessage()"
+      [(ngModel)]="newMessage">
+    <button mat-button
+      name="sendButton"
+      type="button"
+      class="send-button"
+      (click)="sendNewMessage()">Send</button>
+    <button mat-button
+      type="button"
+      class="back-button"
+      (click)="unShowConversation()">Back</button>
+  </form>
+</div>

@@ -25,6 +25,7 @@ export class DataService {
   private loggedInUser = new BehaviorSubject<User>(new User());
   private allProfessionals = new BehaviorSubject<User[]>([]);
   private allPatients = new BehaviorSubject<User[]>([]);
+  private messagesNames = new BehaviorSubject<{ from: string, firstName: string, lastName: string }[]>([]);
 
   constructor(
     private http: HttpClient,
@@ -243,7 +244,7 @@ export class DataService {
     return this.loggedInUser;
   }
 
-  sendCancellationMessage(message: Message) {
+  sendMessage(message: Message) {
     const loggedInUser: User = this.loggedInUser.getValue();
     loggedInUser.messages.push(message);
     this.saveUserLocally(loggedInUser);
@@ -265,15 +266,24 @@ export class DataService {
       });
   }
 
-  getNameByID(id: string) {
+  getNameByID(idToGet: string): BehaviorSubject<{ from: string, firstName: string, lastName: string }[]> {
     this.http
       .put<{
         lastName: string,
-        firstName: string}>
-      ('api/getNameByID', JSON.stringify(id), httpOptions)
+        firstName: string
+      }>
+      ('api/getNameByID', JSON.stringify({ id: idToGet }), httpOptions)
       .subscribe(text => {
-        
-    });
+        if (text !== null && text !== undefined) {
+          const names = this.messagesNames.getValue();
+          if (!names.includes({ from: idToGet, firstName: text.firstName, lastName: text.lastName })) {
+            names.push({ from: idToGet, firstName: text.firstName, lastName: text.lastName });
+            this.messagesNames.next(names);
+          }
+
+        }
+      });
+    return this.messagesNames;
   }
 }
 
