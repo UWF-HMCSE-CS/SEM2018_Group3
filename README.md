@@ -8,4 +8,4 @@ Instructions for Setup
 4.	In your IDE terminal, run 'npm run start'
 5.	Connect to the website via web browser
 
-If the website server is already running, the website can be accessed at http://therastation.org:3000
+If the website server is already running, the website can be accessed at https://therastation.org
