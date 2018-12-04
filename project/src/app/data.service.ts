@@ -10,6 +10,8 @@ import { MatSnackBar } from '@angular/material/snack-bar';
 import { AccountType } from './models/account-type.model';
 import { Router } from '@angular/router';
 import { MatDialog } from '@angular/material';
+import { Message } from './models/message.model';
+import { ConversationData } from './models/conversation-data.model';
 const httpOptions = {
   headers: new HttpHeaders({
     'Content-Type': 'application/json'
@@ -24,6 +26,8 @@ export class DataService {
   private loggedInUser = new BehaviorSubject<User>(new User());
   private allProfessionals = new BehaviorSubject<User[]>([]);
   private allPatients = new BehaviorSubject<User[]>([]);
+  private messagesNames = new BehaviorSubject<{ from: string, firstName: string, lastName: string }[]>([]);
+  private conversationData = new BehaviorSubject<ConversationData>(new ConversationData());
 
   constructor(
     private http: HttpClient,
@@ -110,6 +114,7 @@ export class DataService {
   }
 
   updateUser(originalEmail: string, user: User): BehaviorSubject<User> {
+    this.saveUserLocally(user);
     this.http
       .put<User>(
         'api/updateUser',
@@ -239,4 +244,66 @@ export class DataService {
       });
     return this.loggedInUser;
   }
+
+  sendMessage(message: Message) {
+    const loggedInUser: User = this.loggedInUser.getValue();
+    loggedInUser.messages.push(message);
+    this.saveUserLocally(loggedInUser);
+    this.loggedInUser.next(loggedInUser);
+    this.http.put<string>('api/sendMessage', JSON.stringify(message), httpOptions).subscribe(text => {
+      this.snackBar.open(text, '', {
+        duration: 3000,
+        verticalPosition: 'top',
+        panelClass: 'snackBarStyle'
+      });
+    },
+      (err: HttpErrorResponse) => {
+        if (err.status !== 0) {
+          this.snackBar.open('An Error Has Occurred. Please try again.', '', {
+            duration: 3000,
+            verticalPosition: 'top',
+            panelClass: 'snackBarStyleError'
+          });
+          console.log(err);
+        }
+      });
+  }
+
+  getNameByID(idToGet: string): BehaviorSubject<{ from: string, firstName: string, lastName: string }[]> {
+    this.http
+      .put<{
+        lastName: string,
+        firstName: string
+      }>
+      ('api/getNameByID', JSON.stringify({ id: idToGet }), httpOptions)
+      .subscribe(text => {
+        if (text !== null && text !== undefined) {
+          const names = this.messagesNames.getValue();
+          if (!names.includes({ from: idToGet, firstName: text.firstName, lastName: text.lastName })) {
+            names.push({ from: idToGet, firstName: text.firstName, lastName: text.lastName });
+            this.messagesNames.next(names);
+          }
+
+        }
+      });
+    return this.messagesNames;
+  }
+
+  getConversationDataByEmail(emailToSendTo: string): BehaviorSubject<ConversationData> {
+    this.http.put<ConversationData>('api/getConversationDataByEmail',
+      JSON.stringify({ email: emailToSendTo }),
+      httpOptions).subscribe(conversationData => {
+        this.conversationData.next(conversationData);
+      },
+        (err: HttpErrorResponse) => {
+          console.log(err);
+          this.snackBar.open('An Error Has Occurred. Please try again.', '', {
+            duration: 3000,
+            verticalPosition: 'top',
+            panelClass: 'snackBarStyleError'
+          });
+        });
+    return this.conversationData;
+  }
 }
+
