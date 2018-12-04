@@ -11,6 +11,7 @@ import { AccountType } from './models/account-type.model';
 import { Router } from '@angular/router';
 import { MatDialog } from '@angular/material';
 import { Message } from './models/message.model';
+import { ConversationData } from './models/conversation-data.model';
 const httpOptions = {
   headers: new HttpHeaders({
     'Content-Type': 'application/json'
@@ -26,6 +27,7 @@ export class DataService {
   private allProfessionals = new BehaviorSubject<User[]>([]);
   private allPatients = new BehaviorSubject<User[]>([]);
   private messagesNames = new BehaviorSubject<{ from: string, firstName: string, lastName: string }[]>([]);
+  private conversationData = new BehaviorSubject<ConversationData>(new ConversationData());
 
   constructor(
     private http: HttpClient,
@@ -123,7 +125,6 @@ export class DataService {
         data => {
           this.loggedInUser.next(data);
           this.saveUserLocally(data);
-          console.log(data);
           this.snackBar.open('Account Updated Successfully.', '', {
             duration: 3000,
             verticalPosition: 'top',
@@ -257,12 +258,14 @@ export class DataService {
       });
     },
       (err: HttpErrorResponse) => {
-        console.log(err);
-        this.snackBar.open('An Error Has Occurred. Please try again.', '', {
-          duration: 3000,
-          verticalPosition: 'top',
-          panelClass: 'snackBarStyleError'
-        });
+        if (err.status !== 0) {
+          this.snackBar.open('An Error Has Occurred. Please try again.', '', {
+            duration: 3000,
+            verticalPosition: 'top',
+            panelClass: 'snackBarStyleError'
+          });
+          console.log(err);
+        }
       });
   }
 
@@ -284,6 +287,23 @@ export class DataService {
         }
       });
     return this.messagesNames;
+  }
+
+  getConversationDataByEmail(emailToSendTo: string): BehaviorSubject<ConversationData> {
+    this.http.put<ConversationData>('api/getConversationDataByEmail',
+      JSON.stringify({ email: emailToSendTo }),
+      httpOptions).subscribe(conversationData => {
+        this.conversationData.next(conversationData);
+      },
+        (err: HttpErrorResponse) => {
+          console.log(err);
+          this.snackBar.open('An Error Has Occurred. Please try again.', '', {
+            duration: 3000,
+            verticalPosition: 'top',
+            panelClass: 'snackBarStyleError'
+          });
+        });
+    return this.conversationData;
   }
 }
 

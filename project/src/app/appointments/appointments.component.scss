@@ -11,6 +11,14 @@ table {
   padding-top: 10px;
 }
 
+.buttons-wrapper {
+  display: grid;
+  grid-template-columns: 125px 125px;
+  grid-gap: 10px;
+  /* autoprefixer: off */
+  grid-template-areas:
+    'cancel-button approve-button';
+}
 .cancel-button {
   display: grid;
   border: solid;

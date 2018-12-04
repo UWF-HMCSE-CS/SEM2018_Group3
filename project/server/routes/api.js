@@ -299,7 +299,7 @@ router.put('/sendMessage', (req, res) => {
 
         }
       }
-    },
+    }, { upsert: true },
     function (err, user) {
       if (err) throw err;
       else {
@@ -319,7 +319,7 @@ router.put('/sendMessage', (req, res) => {
                 read: req.body.read
               }
             }
-          },
+          }, { upsert: true },
           function (err, user) {
             if (err) throw err;
             else {
@@ -349,6 +349,21 @@ router.put('/getNameByID', (req, res) => {
     }
   );
   console.log('/getNameByID');
+});
+
+router.put('/getConversationDataByEmail', (req, res) => {
+  models.Users.findOne({ email: req.body.email }, function (err, user) {
+    if (err) throw err;
+    if (user) {
+      res.statusCode = 200;
+      res.json({
+        conversationWithId: user._id,
+        conversationWithFirstName: user.firstName,
+        conversationWithLastName: user.lastName
+      });
+    }
+  });
+  console.log('/getConversationDataByEmail');
 });
 
 /* GET api listing. */

@@ -1,19 +1,40 @@
 <div *ngIf="!conversationSelected">
-  <h2 mat-dialog-title>Conversations</h2>
+  <h2 *ngIf="allConversations.length > 0"
+    mat-dialog-title>Conversations</h2>
+  <h2 *ngIf="allConversations.length === 0"
+    mat-dialog-title>No Conversations To Show</h2>
   <mat-dialog-content>
-    <div *ngFor="let conversation of allConversations; let i = index">
-      <button mat-button
-        class="conversation-button"
-        (click)="showConversation(conversation.conversation)">
-        {{ conversation.conversation[i].conversationWithLastName }},
-        {{ conversation.conversation[i].conversationWithFirstName }}:
-        {{ parseDate(conversation.conversation[conversation.conversation.length - 1].dateTime) }}</button>
+    <div class="all-conversations">
+      <div *ngFor="let conversation of allConversations; let i = index">
+        <button mat-button
+          class="conversation-button"
+          type="button"
+          (click)="showConversation(conversation.conversation)">
+          {{ conversation.conversation[0].conversationWithLastName }},
+          {{ conversation.conversation[0].conversationWithFirstName }}:
+          {{ parseDate(conversation.conversation[conversation.conversation.length - 1].dateTime) }}</button>
+      </div>
     </div>
+    <div class="conversations-wrapper">
+      <button mat-button
+        name="startConversation"
+        type="button"
+        class="start-conversation-button"
+        (click)="startConversation()">Start Conversation</button>
+      <button mat-button
+        type="button"
+        class="close-button"
+        (click)="closeDialog()">Close</button>
+    </div>
+
   </mat-dialog-content>
 </div>
 
 <div *ngIf="conversationSelected">
-  <h2 mat-dialog-title>Messages</h2>
+  <h2 *ngIf="conversation.length > 0"
+    mat-dialog-title>Conversation with {{ conversation[0].conversationWithFirstName }}</h2>
+  <h2 *ngIf="conversation.length === 0"
+    mat-dialog-title>Start Conversation</h2>
   <mat-dialog-content>
     <div class="messages">
       <div *ngFor="let message of conversation"
@@ -27,6 +48,15 @@
           <p class="mat-typography">{{ parseDate(message.dateTime) }}</p>
           <p class="mat-typography">{{ message.conversationWithFirstName }}: {{ message.text }}</p>
         </div>
+      </div>
+      <div *ngIf="this.conversation.length === 0">
+        <input mat-input
+          name="emailToSendTo"
+          [placeholder]="'Email of recipient'"
+          class="new-message"
+          style="width: 100%;"
+          autocomplete="off"
+          [(ngModel)]="emailToSendTo">
       </div>
     </div>
 

@@ -35,15 +35,10 @@ export class ProfileProfessionalComponent implements OnInit {
   }
 
   showMessagesDialog() {
-    console.log('show messages');
     const dialogRef = this.dialog.open(MessagesDialogComponent, {
       width: '525px',
       height: '440px',
       data: this.loggedInUser
-    });
-
-    dialogRef.afterClosed().subscribe(result => {
-      console.log(result);
     });
   }
 }

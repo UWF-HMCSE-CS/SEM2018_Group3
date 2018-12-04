@@ -1,8 +1,39 @@
+.conversations-wrapper {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  grid-gap: 20px;
+  /* autoprefixer: off */
+  //grid-auto-rows: 150px;
+  grid-template-areas:
+    'start-conversation-button close-button';
+}
+
+.all-conversations {
+  height: 295px;
+}
+
 .conversation-button {
   width: 100%;
   height: 40px;
   border: solid;
   border-radius: 20%;
+  background-color: white;
+}
+
+.start-conversation-button {
+  grid-area: start-conversation-button;
+  border: solid;
+  border-radius: 20%;
+  border-color: green;
+  color: green;
+}
+
+.close-button {
+  grid-area: close-button;
+  border: solid;
+  border-radius: 20%;
+  border-color: red;
+  color: red;
 }
 
 .messages-wrapper {
@@ -17,9 +48,7 @@
 }
 
 .messages {
-  grid-area: messages;
-  max-height: 205px;
-  min-height: 205px;
+  height: 220px;
 }
 
 .new-message {

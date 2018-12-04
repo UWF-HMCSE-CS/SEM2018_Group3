@@ -38,6 +38,10 @@ export class ProfessionalCancellationDialogComponent implements OnInit {
     });
   }
 
+  clearMesssage() {
+    this.message.text = '';
+  }
+
   onSubmit() {
     this.message.dateTime = new Date();
     this.message.read = false;
