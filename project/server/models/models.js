@@ -2,17 +2,17 @@ var mongoose = require('mongoose');
 var Schema = mongoose.Schema;
 var ObjectId = Schema.ObjectId;
 
-var validateEmail = function(email) {
+var validateEmail = function (email) {
   var re = /^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/;
   return re.test(email)
 };
 
-var validateFirstName = function(firstName) {
+var validateFirstName = function (firstName) {
   var re = /^[a-zA-Z ,.'-]+$/i;
   return re.test(firstName)
 };
 
-var validateLastName = function(lastName) {
+var validateLastName = function (lastName) {
   var re = /^[a-zA-Z ,.'-]+$/i;
   return re.test(lastName)
 };
@@ -26,7 +26,6 @@ var User = Schema({
     min: [2, 'Insufficient letters'],
     max: 30,
     required: true,
-    lowercase: true,
     required: 'First name is required',
     validate: [validateFirstName, 'Please enter a valid first name'],
     match: [/^[a-zA-Z ,.'-]+$/i, 'Please enter a valid first name']
@@ -36,7 +35,6 @@ var User = Schema({
     min: [2, 'Insufficient letters'],
     max: 30,
     required: true,
-    lowercase: true,
     required: 'Last name is required',
     validate: [validateLastName, 'Please enter a valid last name'],
     match: [/^[a-zA-Z ,.'-]+$/i, 'Please enter a valid last name']
@@ -69,7 +67,7 @@ var User = Schema({
   // The type of account (ex. patient, type of professional) from AccountType list below
   type: {
     type: String,
-    required: true 
+    required: true
   },
 
   // Appointments
@@ -77,7 +75,16 @@ var User = Schema({
   approvedAppointments: [{ dateTime: Date, id: String }],
 
   // Messages between patient and professional
-  messages: [{ dateTime: Date, text: String, from: String, to: String }],
+  messages: [{
+    conversationWithId: String,
+    conversationWithFirstName: String,
+    conversationWithLastName: String,
+    dateTime: Date,
+    text: String,
+    from: String,
+    to: String,
+    read: Boolean
+  }],
 
 
   // Patient feedback: review on professionals, Professional feedback: personal note about patient
@@ -85,9 +92,5 @@ var User = Schema({
 });
 
 var Users = mongoose.model('Users', User);
-
-var mongoDB =
-  'mongodb://frank:password@therastation.org/admin?authSource=admin';
-mongoose.connect(mongoDB);
 
 exports.Users = Users;

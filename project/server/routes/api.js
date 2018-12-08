@@ -1,9 +1,11 @@
 const express = require('express');
 const router = express.Router();
 var mongoose = require('mongoose');
+var test =
+  'mongodb://frank:password@localhost:27017/admin?authSource=admin';
 var mongoDB =
   'mongodb://frank:password@therastation.org/admin?authSource=admin';
-mongoose.connect(mongoDB);
+mongoose.connect(test);  // CHANGE THIS BACK TO mongoDB FOR THE PRODUCTION ENVIRONMENT
 mongoose.Promise = global.Promise;
 var db = mongoose.connection;
 db.on('error', console.error.bind(console, 'MongoDB connection error:'));
@@ -16,7 +18,7 @@ app.use(bodyParser.urlencoded({ extended: false }));
 app.use(bodyParser.json());
 
 router.put('/newAccount', (req, res) => {
-  models.Users.findOne({ email: req.body.email }, function(err, user) {
+  models.Users.findOne({ email: req.body.email }, function (err, user) {
     if (user) {
       res.statusCode = 200;
       res.json(user);
@@ -29,7 +31,7 @@ router.put('/newAccount', (req, res) => {
         password: req.body.password,
         type: req.body.type
       });
-      newAccount.save(function(err) {
+      newAccount.save(function (err) {
         if (err) throw err;
         else {
           res.statusCode = 200;
@@ -45,7 +47,7 @@ router.post('/login', (req, res) => {
   //req.body.validate
   //Make sure every character in the data is what you expect it to be.
   //Email cant have
-  models.Users.findOne({ email: req.body.email }, function(err, user) {
+  models.Users.findOne({ email: req.body.email }, function (err, user) {
     if (err) throw err;
     if (user != null) {
       if (user.password == req.body.password) {
@@ -65,21 +67,25 @@ router.post('/login', (req, res) => {
 });
 
 router.put('/updateUser', (req, res) => {
+  console.log(req.body.user.firstName);
   models.Users.findOneAndUpdate(
     { email: req.body.originalEmail },
     {
-      firstName: req.body.user.firstName,
-      lastName: req.body.user.lastName,
-      address: req.body.user.address,
-      email: req.body.user.email,
-      password: req.body.user.password,
-      type: req.body.user.type,
-      bio: req.body.user.bio
+      $set: {
+        firstName: req.body.user.firstName,
+        lastName: req.body.user.lastName,
+        address: req.body.user.address,
+        email: req.body.user.email,
+        password: req.body.user.password,
+        type: req.body.user.type,
+        bio: req.body.user.bio
+      }
     },
     { new: true },
-    function(err, user) {
+    function (err, user) {
       if (err) throw err;
       if (user) {
+        console.log(user);
         res.statusCode = 200;
         res.json(user);
       } else {
@@ -92,14 +98,14 @@ router.put('/updateUser', (req, res) => {
 });
 
 router.get('/allProfessionals', (req, res) => {
-  models.Users.find({ type: { $ne: 'Patient' } }, function(err, users) {
+  models.Users.find({ type: { $ne: 'Patient' } }, function (err, users) {
     res.send(users);
   });
   console.log('/allProfessionals');
 });
 
 router.get('/allPatients', (req, res) => {
-  models.Users.find({ type: 'Patient' }, function(err, users) {
+  models.Users.find({ type: 'Patient' }, function (err, users) {
     res.send(users);
   });
   console.log('/allPatients');
@@ -117,7 +123,7 @@ router.post('/requestAppointment', (req, res) => {
       }
     },
     { upsert: true, new: true },
-    function(err, user) {
+    function (err, user) {
       if (err) throw err;
       res.json(user);
     }
@@ -133,7 +139,7 @@ router.post('/requestAppointment', (req, res) => {
       }
     },
     { upsert: true },
-    function(err, user) {
+    function (err, user) {
       if (err) throw err;
     }
   );
@@ -153,7 +159,7 @@ router.post('/cancelRequestedAppointment', (req, res) => {
       }
     },
     { new: true },
-    function(err, user) {
+    function (err, user) {
       if (err) throw err;
       if (req.body.accountType.includes('Patient')) {
         res.json(user);
@@ -171,7 +177,7 @@ router.post('/cancelRequestedAppointment', (req, res) => {
       }
     },
     { new: true },
-    function(err, user) {
+    function (err, user) {
       if (err) throw err;
       if (!req.body.accountType.includes('Patient')) {
         res.json(user);
@@ -194,7 +200,7 @@ router.post('/cancelApprovedAppointment', (req, res) => {
       }
     },
     { new: true },
-    function(err, user) {
+    function (err, user) {
       if (err) throw err;
       if (req.body.accountType.includes('Patient')) {
         res.json(user);
@@ -212,7 +218,7 @@ router.post('/cancelApprovedAppointment', (req, res) => {
       }
     },
     { new: true },
-    function(err, user) {
+    function (err, user) {
       if (err) throw err;
       if (!req.body.accountType.includes('Patient')) {
         res.json(user);
@@ -241,7 +247,7 @@ router.post('/approveAppointment', (req, res) => {
       }
     },
     { new: true },
-    function(err, user) {
+    function (err, user) {
       if (err) throw err;
       if (req.body.accountType.includes('Patient')) {
         res.json(user);
@@ -265,7 +271,7 @@ router.post('/approveAppointment', (req, res) => {
       }
     },
     { new: true },
-    function(err, user) {
+    function (err, user) {
       if (err) throw err;
       if (!req.body.accountType.includes('Patient')) {
         res.json(user);
@@ -274,6 +280,90 @@ router.post('/approveAppointment', (req, res) => {
   );
   res.statusCode = 200;
   console.log('/approveAppointment');
+});
+
+router.put('/sendMessage', (req, res) => {
+  models.Users.findByIdAndUpdate(
+    req.body.from,
+    {
+      $push: {
+        messages: {
+          conversationWithId: req.body.conversationWithId,
+          conversationWithFirstName: req.body.conversationWithFirstName,
+          conversationWithLastName: req.body.conversationWithLastName,
+          dateTime: req.body.dateTime,
+          text: req.body.text,
+          from: req.body.from,
+          to: req.body.to,
+          read: req.body.read
+
+        }
+      }
+    }, { upsert: true },
+    function (err, user) {
+      if (err) throw err;
+      else {
+        console.log(user.messages);
+        models.Users.findByIdAndUpdate(
+          req.body.to,
+          {
+            $push: {
+              messages: {
+                conversationWithId: user._id,
+                conversationWithFirstName: user.firstName,
+                conversationWithLastName: user.lastName,
+                dateTime: req.body.dateTime,
+                text: req.body.text,
+                from: req.body.from,
+                to: req.body.to,
+                read: req.body.read
+              }
+            }
+          }, { upsert: true },
+          function (err, user) {
+            if (err) throw err;
+            else {
+              console.log(user.messages);
+            }
+          }
+        );
+      }
+    }
+  );
+  res.statusCode = 200;
+  console.log('/sendMessage');
+});
+
+router.put('/getNameByID', (req, res) => {
+  models.Users.findById(
+    req.body.id,
+    function (err, user) {
+      if (err) throw err;
+      if (user) {
+        res.statusCode = 200;
+        res.json({
+          lastName: user.lastName,
+          firstName: user.firstName
+        });
+      }
+    }
+  );
+  console.log('/getNameByID');
+});
+
+router.put('/getConversationDataByEmail', (req, res) => {
+  models.Users.findOne({ email: req.body.email }, function (err, user) {
+    if (err) throw err;
+    if (user) {
+      res.statusCode = 200;
+      res.json({
+        conversationWithId: user._id,
+        conversationWithFirstName: user.firstName,
+        conversationWithLastName: user.lastName
+      });
+    }
+  });
+  console.log('/getConversationDataByEmail');
 });
 
 /* GET api listing. */

@@ -1,4 +1,3 @@
-import { Message } from './../models/message.model';
 import { MatDialog } from '@angular/material';
 import { ProfessionalCancellationDialogComponent } from './professional-cancellation-dialog/professional-cancellation-dialog.component';
 import { Appointment } from './../models/appointment.model';
@@ -268,19 +267,16 @@ export class AppointmentsComponent implements OnInit {
       });
 
       dialogRef.afterClosed().subscribe(result => {
-        if (dialogRef.componentInstance.message.text.length > 20) {
+        if (dialogRef.componentInstance.message.text.length >= 20) {
           if (fromApprovedList) {
             this.data.cancelApprovedAppointment(appointmentToUpdate);
           } else {
             this.data.cancelRequestedAppointment(appointmentToUpdate);
           }
+          this.data.sendMessage(dialogRef.componentInstance.message);
+          this.loggedInUser.messages.push(dialogRef.componentInstance.message);
         }
       });
-      /*       if (fromApprovedList) {
-              this.data.cancelApprovedAppointment(appointmentToUpdate);
-            } else {
-              this.data.cancelRequestedAppointment(appointmentToUpdate);
-            } */
     }
   }
 }

@@ -49,16 +49,19 @@
       *matHeaderCellDef>{{ columns[3] }}</th>
     <td mat-cell
       *matCellDef="let element">
-      <button class="approve-button"
-        mat-button
-        (click)="updateAppointment(element.modify, true, false)">
-        Approve
-      </button>
-      <button class="cancel-button"
-        mat-button
-        (click)="updateAppointment(element.modify, false, false)">
-        Deny
-      </button>
+      <div class="buttons-wrapper">
+        <button class="approve-button"
+          mat-button
+          (click)="updateAppointment(element.modify, true, false)">
+          Approve
+        </button>
+        <button class="cancel-button"
+          mat-button
+          (click)="updateAppointment(element.modify, false, false)">
+          Deny
+        </button>
+      </div>
+
     </td>
   </ng-container>
 
